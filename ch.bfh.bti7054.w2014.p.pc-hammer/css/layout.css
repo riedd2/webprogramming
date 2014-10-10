@@ -1,0 +1,48 @@
+
+div {
+	border: 1px solid #d3d3e3
+}
+
+div#Header {
+	margin: 0;
+	padding: 1em;
+}
+
+div#south {
+	margin: 0;
+	padding: 1em;
+}
+
+div#Navigation {
+	margin: 0;
+	padding: 1em;
+	width: 20%;
+	height: 22em;
+	float: left;
+	margin-right: 1.1em
+}
+
+div#Info {
+	margin: 0;
+	padding: 1em;
+	width: 20%;
+	height: 22em;
+	float: right;
+	margin-left: 1.1em
+}
+
+div#Main {
+	margin: 0;
+	padding: 1em;
+	padding-bottom: 0em;
+
+}
+
+div#Main:after {
+	content: ' ';
+	clear: both;
+	display: block;
+	height: 0;
+	overflow: hidden;
+
+}
