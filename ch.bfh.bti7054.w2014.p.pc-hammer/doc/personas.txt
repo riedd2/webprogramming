@@ -1,0 +1,16 @@
+--Personas--
+
+Wizard-Believer
+- male
+- 25
+- technical interest
+- knows the difference between nutella bread and a CPU
+- pays 1500.- for a new computer
+
+
+Kompenenteler
+- male
+- 25
+- computer crack
+- knows the difference between LGA1150 and LGA1155
+- pays 2500.- for a new components

@@ -1,0 +1,28 @@
+- mainboard
+-- low 100
+-- mid 150
+-- high 250
+- CPU
+-- low 200
+-- mid 300
+-- high 400
+- RAM
+-- 4GB 80
+-- 8GB 150
+-- 16GB 200
+- graphics card
+-- low 100
+-- mid 200
+-- high 400
+- Disk
+-- HDD 500GB 80
+-- SSD 120GB 100
+-- SSD 240GB 200
+- case
+-- small
+-- tower
+-- big tower
+
+options:
+- send by post
+- collection
