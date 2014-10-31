@@ -1,0 +1,27 @@
+--Use Cases--
+
+Sign Up
+Login
+Logout
+review user data
+review orders archive
+review current orders
+
+Search a product
+Browse product catalog
+Filter product catalog
+add to chart
+manage chart
+checkout
+
+use wizard
+include: filter product catalog
+include: add to chart
+include: manage chart
+include: checkout
+
+
+
+
+
+

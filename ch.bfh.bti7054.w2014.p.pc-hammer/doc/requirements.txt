@@ -1,0 +1,31 @@
+--Requirements--
+
+Grundrequirements:
+-Nicht Technisch
+Stammdaten: Specs, Kompatibilität
+
+-Technisch
+Datenbank (Kai)
+jQuery
+Search Optimization
+
+Benutzerverwaltung:
+Loginsystem (Sign Up, Login, Logout) (Riedo)
+Differierung zwischen Angemeldet/Anonym
+
+Produktkatalog: (Kai)
+Filterfunktion
+Suchfunktion
+
+Design:
+HTML Struktur
+Navigation (Kai)
+CSS Design
+Bilder (Marti)
+
+Wizard: (Marti)
+Step by Step
+
+Warenkorb: (Riedo)
+Managefunktion (Menge ändern, löschen)
+Checkout
