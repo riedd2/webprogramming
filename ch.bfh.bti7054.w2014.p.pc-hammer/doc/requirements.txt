@@ -5,27 +5,30 @@ Grundrequirements:
 Stammdaten: Specs, Kompatibilität
 
 -Technisch
-Datenbank (Kai)
+Datenbank (Kai)- nächstes mal
 jQuery
 Search Optimization
 
 Benutzerverwaltung:
-Loginsystem (Sign Up, Login, Logout) (Riedo)
+Loginsystem (Sign Up, Login, Logout) (Riedo)- nächstes mal
 Differierung zwischen Angemeldet/Anonym
 
-Produktkatalog: (Kai)
+Produktkatalog: (Kai)- nächstes mal
 Filterfunktion
 Suchfunktion
 
 Design:
 HTML Struktur
-Navigation (Kai)
+Navigation (Kai)- nächstes mal
 CSS Design
-Bilder (Marti)
+Bilder (Marti)- nächstes mal
 
-Wizard: (Marti)
+Wizard: (Marti)- nächstes mal
 Step by Step
 
-Warenkorb: (Riedo)
+Warenkorb: (Riedo)- nächstes mal
 Managefunktion (Menge ändern, löschen)
 Checkout
+
+OR Mapper: (Riedo) - nächstes mal
+Proppel
