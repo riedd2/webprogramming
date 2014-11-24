@@ -1,4 +1,6 @@
 <?php
-echo "test"
+echo "test";
+$var = "test";
+echo $var;
 		
-?>
+		
