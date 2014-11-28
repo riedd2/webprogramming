@@ -1,57 +1,111 @@
+<?php include "Controller/LoginController.php"; 
+
+
+# default page
+$default = 'home.php';
+
+# set document root path
+$base = 'view\\';
+
+# list of all site pages + the id they will be called by
+$pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
+
+
+
+
+?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<?php include "Controller/LoginController.php"; ?>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/layout.css">
-<link rel="stylesheet" type="text/css" href="css/format.css">
-<script src="script/jquery-2.1.1.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap 101 Template</title>
+
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-
-	<div id="Header">
-		<img src="img/logo.jpg">
-		This is the header
-		<div class="login" align="right">
-			<?php
-			
+	<div class="row">
+		<div class="col-md-4">
+			<h1>Logo</h1>
+		</div>^
+	</div>
+	<div class="row">
+		<div class="col-md-4">left</div>
+		<div class="col-md-4">middle</div>
+		<div class="col-md-4">
+		<?php
+		
 			if (isset ( $_SESSION ["user"] )) {
 				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
 			} else {
-				echo '<form action="index.php" method="post"><input name="user" /> User Name<br /> <input type="password"	name="pw" /> Password<br /> <input type="submit" value="Login"/></form>';
+				echo '<form action="index.php" method="post"><input name="user" /> User Name<br /> <input type="password"	name="pw" /> Password<br /> <button type="submit" class="btn btn-default btn-lg">Login</button></form>';
 			}
+		
+		?>	
 			
-			?>	
+			
 		</div>
+
 	</div>
-	
-	
-	<div id="Content">
-		<div id="Navigation">
-			<!-- Accordion -->
-			<h2 class="demoHeaders">Accordion</h2>
-			<div id="accordion">
-				<h3>Products</h3>
-				<ul>
-					<li><a href="view/catalog.php?filter=HDD">HDD</a></li>
-					<li>Mainboard</li>
-				</ul>
-				<h3>Account</h3>
-				<ul>
-					<li>Basked</li>
-					<li>Settings</li>
-				</ul>
-				<h3>Wizard</h3>
-				<ul>
-					<li>Start</li>
-					<li>Introduction</li>
-				</ul>
-			</div>
+
+	<div class="row">
+		<div class="col-md-3">
+			<ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="active"><a href="index.php">Home</a></li>
+				<li role="presentation"><a href="?page=catalog">HDD</a></li>
+				<li role="presentation"><a href="#">Messages</a></li>
+			</ul>
 
 		</div>
-		<div id="Info">this is info panel</div>
-		<div id="Main">Main Content</div>
+		<div class="col-md-6">
+		<?php 
+		if(isset($_GET['page'])){
+			if(array_key_exists($_GET['page'], $pages))
+			{
+				foreach($pages as $pageid => $pagename) {
+					if($_GET['page'] == $pageid && file_exists($base.$pagename))
+					{
+						/* if somebody's making a request for ?page=xxx and
+						 the page exists in the $pages array, we display it
+						 checking first it also exists as a page on the server */
+						include $base.$pagename;
+					}
+				} // end foreach
+			}
+			else {
+				/* if the page isn't listed in $pages, or there's no ?page=xxx request
+				 we show the default page, again we'll also just make sure it exists as a file
+				 on the server */
+				if(file_exists($base.$default)) include $base.$default;
+			}
+		}
+		else {
+			/* if no page is set, display default page */
+			if(file_exists($base.$default)) include $base.$default;
+		}
+			
+		
+		?>
+		
+		
+		
+		</div>
+		<div class="col-md-3">Infopanel</div>
 	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

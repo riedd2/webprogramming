@@ -1,12 +1,6 @@
-<html>
-<head>
-
-</head>
-<body>
-
 <?php
 function __autoload($class_name) {
-	include '..\class\\'. $class_name . '.inc.php';
+	include 'class\\'. $class_name . '.inc.php';
 }
 
 $cat = new catalog();
@@ -42,13 +36,8 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 
 
 //filter with type seleciton
-echo "<form action='catalog.php' method='get' name='filterform'>";
+echo "<form action='index.php' method='get' name='filterform'>";
 for ($i = 0; $i <= sizeof($cat); $i++){
-	
-	//
-	//
-	// PROBLEM IS: when second checkbox klicked, both will be send cause both are checked when send
-	//
 	echo $categories[$i];
 	if($filter == $categories[$i]){
 		echo "<input type='radio' name='filter' value='".$categories[$i]."'  checked />";
@@ -56,8 +45,8 @@ for ($i = 0; $i <= sizeof($cat); $i++){
 		
 		echo "<input type='radio' name='filter' value='".$categories[$i]."'  />";
 	}
-	//echo "<input type='checkbox' name='filter' value='".$categories[$i]."' onChange='this.form.submit()' ".($filter == $categories[$i] ? "checked" : "")."'/>";
 }
+echo "<input type='textbox' hidden name='page' value='catalog'/>";
 echo "<input type='submit' value='submit'/>";
 
 echo '</form>';
@@ -106,28 +95,28 @@ foreach ($products as $p){
 
 ?>
 <p>
-<form action="catalog.php" method="get">
+<form action="index.php" method="get">
  Filter: <input type="text" name="filter" /></br>
  <input type="submit" value="set filter" />
+ <input type='textbox' hidden name='page' value='catalog'/>
  </form>
 </p>
 
 <p>
-<form action="catalog.php" method="get">
+<form action="index.php" method="get">
  Search: <input type="text" name="search" /></br>
  <input type="submit" value="search a name" />
+  <input type='textbox' hidden name='page' value='catalog'/>
  </form>
 </p>
 
 <p>
-<form action="catalog.php" method="get">
+<form action="index.php" method="get">
  Search: <input hidden="true" type="text" name="reset" /></br>
  <input type="submit" value="reset" />
+  <input type='textbox' hidden name='page' value='catalog'/>
  </form>
 </p>
-
-</body>
-</html>
 
 
 
