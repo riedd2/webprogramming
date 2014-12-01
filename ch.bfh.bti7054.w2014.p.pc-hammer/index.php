@@ -54,7 +54,6 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 			
 			
 		</div>
-
 	</div>
 
 	<div class="row">
@@ -99,7 +98,13 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		
 		
 		</div>
-		<div class="col-md-3">Infopanel</div>
+		<div class="col-md-3">
+		<?php 
+		if (isset ( $_SESSION ["user"] )) {
+			echo "<h3>Warenkorb</h3>";
+		}
+		?>
+		</div>
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
