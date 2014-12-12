@@ -39,9 +39,19 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		</div>^
 	</div>
 	<div class="row">
-		<div class="col-md-4">left</div>
-		<div class="col-md-4">middle</div>
-		<div class="col-md-4">
+		<div class="col-md-3">left</div>
+		<div class="col-md-6">
+		
+		<form action="index.php" method="get">
+			<input type="search" placeholder="produkt, kategorie, ...	" class="form-control" name="search"/>
+			<button type="submit" class="btn btn-default">suchen</button>
+			<input type='textbox' hidden name='page' value='catalog'/>
+		</form>
+				
+			
+			
+		</div>
+		<div class="col-md-3">
 		<?php
 		
 			if (isset ( $_SESSION ["user"] )) {
@@ -60,8 +70,8 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		<div class="col-md-3">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation" class="active"><a href="index.php">Home</a></li>
-				<li role="presentation"><a href="?page=catalog">HDD</a></li>
-				<li role="presentation"><a href="#">Messages</a></li>
+				<li role="presentation"><a href="?page=catalog">Katalog</a></li>
+				<li role="presentation"><a href="#">Kontakt</a></li>
 			</ul>
 
 		</div>
