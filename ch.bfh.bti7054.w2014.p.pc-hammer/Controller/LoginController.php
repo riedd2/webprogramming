@@ -1,9 +1,21 @@
 <?php
 session_start ();
 
+$db = new dbconnector();
+
+$res = false;
+
+$username = "";
+$password = "";
+if (isset( $_POST ["user"] ) && isset( $_POST ["pw"] )) {
+	$username = $_POST ["user"];
+	$password = $_POST ["pw"];
+	$res = $db->checkUserPassword($username, $password);
+}
+
 
 if (isset( $_POST ["user"] )) {
-	if ($_POST ["user"] == "John" && $_POST ["pw"] == "php" || $_POST ["user"] == "Alice" && $_POST ["pw"] == "mysql") {
+	if ($res) {
 		$_SESSION ["user"] = $_POST ["user"];
 		 $user = $_POST ["user"];
 		return $user;
