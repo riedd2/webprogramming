@@ -3,6 +3,7 @@ function __autoload($class_name) {
 	include 'class\\'. $class_name . '.inc.php';
 }
 
+
 $cat = new catalog();
 
 $products = $cat->products;
@@ -94,6 +95,8 @@ if($searchquery!= ""){
 
 <?php 
 function showProduct($p){
+	$jsFunction = "addToBasket('".json_encode($p)."',document.getElementById('".$p['name']."').value)";
+
 	echo "<div class='row'>";
 	echo "<h1>".$p["name"]."</h1>";
 	echo "<div class='col-xs-3 col-sm-3'>";
@@ -111,7 +114,7 @@ function showProduct($p){
 		echo "<button onClick='increase(".$p['name'].")'>+</button>";
 		echo "<button onClick='decrease(".$p['name'].")'>-</button>";
 		echo "</td><td>";
-		echo "<button class='btn btn-default' '>In den Warenkorb</button></td></tr>";
+		echo "<button class='btn btn-default' onclick=".$jsFunction.">In den Warenkorb</button></td></tr>";
 		echo "</table>";
 	echo "</div>";
 	echo "</div class='row'>";
@@ -153,8 +156,9 @@ function increase(idd){
 function decrease(idd){
 	if(idd.value <= 0)
 		return;
-	idd.value--;
+	idd.value--;s
 } 
+
 </script>
 <!--
 
