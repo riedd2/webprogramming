@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2014 at 04:59 PM
+-- Generation Time: Dec 28, 2014 at 01:51 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -34,6 +34,34 @@ CREATE TABLE IF NOT EXISTS `basket` (
   `paid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `basket`
+--
+
+INSERT INTO `basket` (`user_id`, `product_id`, `quantity`, `totalPrice`, `paid`) VALUES
+(1, 3, 2, 100, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+`id_category` int(11) NOT NULL,
+  `categoryname` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id_category`, `categoryname`) VALUES
+(1, 'hdd'),
+(2, 'graphicscard'),
+(3, 'mainboard'),
+(4, 'cpu');
+
 -- --------------------------------------------------------
 
 --
@@ -45,7 +73,14 @@ CREATE TABLE IF NOT EXISTS `cpu` (
   `socket` varchar(150) NOT NULL,
   `frequency` float NOT NULL,
   `cores` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `cpu`
+--
+
+INSERT INTO `cpu` (`id_cpu`, `socket`, `frequency`, `cores`) VALUES
+(3, 'L3', 3.3, 4);
 
 -- --------------------------------------------------------
 
@@ -58,7 +93,14 @@ CREATE TABLE IF NOT EXISTS `disc` (
   `type` varchar(150) NOT NULL,
   `volume` int(11) NOT NULL,
   `dimension` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `disc`
+--
+
+INSERT INTO `disc` (`id_disc`, `type`, `volume`, `dimension`) VALUES
+(4, 'ssd', 300, 2.2);
 
 -- --------------------------------------------------------
 
@@ -71,7 +113,14 @@ CREATE TABLE IF NOT EXISTS `graphicscard` (
   `RAM` varchar(150) NOT NULL,
   `RAMType` varchar(150) NOT NULL,
   `PCIeType` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `graphicscard`
+--
+
+INSERT INTO `graphicscard` (`id_graphicscard`, `RAM`, `RAMType`, `PCIeType`) VALUES
+(2, '3GB', 'DDR5', '16');
 
 -- --------------------------------------------------------
 
@@ -86,7 +135,14 @@ CREATE TABLE IF NOT EXISTS `mainboard` (
   `USB3quant` int(11) DEFAULT NULL,
   `PCIE16quant` int(11) DEFAULT NULL,
   `SATA3quant` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `mainboard`
+--
+
+INSERT INTO `mainboard` (`id_mainboard`, `dimension`, `USB2quant`, `USB3quant`, `PCIE16quant`, `SATA3quant`) VALUES
+(1, 4.4, 3, 4, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -96,10 +152,21 @@ CREATE TABLE IF NOT EXISTS `mainboard` (
 
 CREATE TABLE IF NOT EXISTS `product` (
 `id_product` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `price` decimal(19,4) NOT NULL,
   `quantAvailable` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id_product`, `category_id`, `name`, `price`, `quantAvailable`) VALUES
+(1, 3, 'mainboard1', '99.0000', 10),
+(2, 2, 'nvidea bla3000', '300.0000', 4),
+(3, 4, 'i5 2.2', '99.0000', 2),
+(4, 1, 'superstar300', '250.0000', 24);
 
 -- --------------------------------------------------------
 
@@ -109,10 +176,19 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 CREATE TABLE IF NOT EXISTS `user` (
 `id_user` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
+  `username` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
-  `password` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `password` varchar(128) NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `admin`) VALUES
+(1, 'boschung', 'bsochung@sdf.com', 'Hallo123', 1),
+(2, 'riedo', 'riedo@rie.com', 'Hallo123', 0);
 
 --
 -- Indexes for dumped tables
@@ -123,6 +199,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 ALTER TABLE `basket`
  ADD PRIMARY KEY (`user_id`), ADD KEY `basket_ibfk_1` (`product_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+ ADD PRIMARY KEY (`id_category`), ADD KEY `id_category` (`id_category`);
 
 --
 -- Indexes for table `cpu`
@@ -152,7 +234,7 @@ ALTER TABLE `mainboard`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
- ADD PRIMARY KEY (`id_product`);
+ ADD PRIMARY KEY (`id_product`), ADD KEY `category_id` (`category_id`), ADD KEY `category_id_2` (`category_id`);
 
 --
 -- Indexes for table `user`
@@ -165,35 +247,40 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `cpu`
 --
 ALTER TABLE `cpu`
-MODIFY `id_cpu` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_cpu` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `disc`
 --
 ALTER TABLE `disc`
-MODIFY `id_disc` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_disc` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `graphicscard`
 --
 ALTER TABLE `graphicscard`
-MODIFY `id_graphicscard` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_graphicscard` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `mainboard`
 --
 ALTER TABLE `mainboard`
-MODIFY `id_mainboard` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_mainboard` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -228,6 +315,12 @@ ADD CONSTRAINT `graphicscard_ibfk_1` FOREIGN KEY (`id_graphicscard`) REFERENCES 
 --
 ALTER TABLE `mainboard`
 ADD CONSTRAINT `mainboard_ibfk_1` FOREIGN KEY (`id_mainboard`) REFERENCES `product` (`id_product`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id_category`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
