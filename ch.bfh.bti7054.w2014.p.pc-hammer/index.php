@@ -1,4 +1,7 @@
-<?php include "Controller/LoginController.php"; 
+<?php 
+include "class/cart.inc.php";
+include "Controller/LoginController.php";
+
 
 
 # default page
@@ -101,7 +104,8 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		<div class="col-md-3">
 		<?php 
 		if (isset ( $_SESSION ["user"] )) {
-			echo "<h3>Warenkorb</h3>";
+			
+			include "view/cart.php";
 		}
 		?>
 		</div>
