@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/webprogramming/ch.bfh.bti7054.w2014.p.pc-hammer/class/cart.inc.php";
+require_once "../class/cart.inc.php";
 if(!isset($_SESSION)) session_start();
 
 if (! isset ( $_SESSION ["cart"] ))
