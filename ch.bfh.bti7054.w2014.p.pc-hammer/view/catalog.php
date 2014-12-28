@@ -1,9 +1,4 @@
 <?php
-function __autoload($class_name) {
-	include 'class\\'. $class_name . '.inc.php';
-}
-
-
 $cat = new catalog();
 
 $products = $cat->products;
@@ -13,13 +8,12 @@ $onlyMainboard = false;
 $filter = "";
 $searchquery = "";
 
-//filter with input box
+//filter with combo box
 if(isset($_GET['filter'])){
 	$filter = $_GET['filter'];
 }
 
 //search for name
-//filter with input box
 if(isset($_GET['search']) && $_GET['search'] != ""){
 	$searchquery = $_GET['search'];
 }
@@ -29,11 +23,12 @@ echo "filter: " . $filter . "</br>";
 echo "search: " . $searchquery;
 
 
+
 //filter with type seleciton
 echo "<div class='row'>";
 	echo "<h3>Filter</h3>";
 	echo "<form action='index.php' method='get' name='filterform'>";
-	for ($i = 0; $i < sizeof($categories); $i++){
+	for ($i = 1; $i <= sizeof($categories); $i++){
 		echo $categories[$i];
 		if($filter == $categories[$i]){
 			echo "<input type='radio' name='filter' value='".$categories[$i]."'  checked /></br>";

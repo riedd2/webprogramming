@@ -4,9 +4,11 @@ session_start ();
 include "Controller/LoginController.php";
 
 
+function __autoload($class_name) {
+	include 'class\\'. $class_name . '.inc.php';
+}
 
-
-
+include "Controller/LoginController.php";
 # default page
 $default = 'home.php';
 
@@ -14,7 +16,7 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
+$pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
 
 
 
@@ -26,7 +28,7 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap 101 Template</title>
+<title>pchammer</title>
 
 <!-- Bootstrap -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -61,9 +63,12 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		<div class="col-md-3">
 		<?php
 		
-			if (isset ( $_SESSION ["user"] )) {
+			if (isset ( $_SESSION ["user"] ) && isset($_SESSION ["admin"])) {
+				echo "Welcome Admin " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
+				echo "</br> <a href='?page=admin'>Adminmenu</a>";
+			}else if (isset ( $_SESSION ["user"] )) {
 				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
-			} else {
+			}else {
 				echo '<form action="index.php" method="post"><input name="user" /> User Name<br /> <input type="password"	name="pw" /> Password<br /> <button type="submit" class="btn btn-default btn-lg">Login</button></form>';
 			}
 		
