@@ -11,7 +11,7 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
+$pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
 
 
 
@@ -57,9 +57,12 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php');
 		<div class="col-md-3">
 		<?php
 		
-			if (isset ( $_SESSION ["user"] )) {
+			if (isset ( $_SESSION ["user"] ) && isset($_SESSION ["admin"])) {
+				echo "Welcome Admin " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
+				echo "</br> <a href='?page=admin'>Adminmenu</a>";
+			}else if (isset ( $_SESSION ["user"] )) {
 				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
-			} else {
+			}else {
 				echo '<form action="index.php" method="post"><input name="user" /> User Name<br /> <input type="password"	name="pw" /> Password<br /> <button type="submit" class="btn btn-default btn-lg">Login</button></form>';
 			}
 		

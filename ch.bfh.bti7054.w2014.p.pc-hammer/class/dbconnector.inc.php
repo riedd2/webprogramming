@@ -37,10 +37,14 @@ class dbconnector{
 	}
 	
 	function checkUserPassword($username, $password){
-		$this->setQuery("SELECT username FROM user WHERE username = '".$username."' AND password = '".$password."'");
+		$this->setQuery("SELECT username, admin FROM user WHERE username = '".$username."' AND password = '".$password."'");
 		$this->queryDB();
 
 		if(mysqli_num_rows($this->result) == 1){
+			$row = $this->result->fetch_assoc();
+			if($row['admin'] == 1)
+				$_SESSION ["admin"] = true;
+				
 			return true;
 		}else{
 			if(mysqli_num_rows($this->result) == 0)

@@ -17,7 +17,7 @@ if (isset( $_POST ["user"] ) && isset( $_POST ["pw"] )) {
 if (isset( $_POST ["user"] )) {
 	if ($res) {
 		$_SESSION ["user"] = $_POST ["user"];
-		 $user = $_POST ["user"];
+		$user = $_POST ["user"];
 		return $user;
 	}
 }
