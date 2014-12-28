@@ -2,6 +2,8 @@
 <head><script type="text/javascript">
 function addToBasket(product, num)
 {
+	//replace back 
+	product = product.replace('|', ' ');
 	if (window.XMLHttpRequest){ xmlhttp=new XMLHttpRequest(); }else{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
 	xmlhttp.open("GET","Controller/cartHandler.php?art="+product+"&num="+num, true);
 	xmlhttp.send();

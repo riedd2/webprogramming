@@ -90,7 +90,11 @@ if($searchquery!= ""){
 
 <?php 
 function showProduct($p){
-	$jsFunction = "addToBasket('".json_encode($p)."',document.getElementById('".$p['name']."').value)";
+	
+	$prodId = $p["id"];
+	//Replace spaces with | because the browser is messing up the onclick statement
+	$jsonString = "'".preg_replace('/\s+/', '|', json_encode($p))."'";
+	$jsFunction = 'addToBasket('.$jsonString.',document.getElementById("'.$prodId.'").value)';
 
 	echo "<div class='row'>";
 	echo "<h1>".$p["name"]."</h1>";
@@ -105,9 +109,9 @@ function showProduct($p){
 		echo "<tr><td>Typ</td><td>";
 		echo $p["type"];
 		echo "</tr><tr><td>";
-		echo "<input type='text' width='40px' style='float: right' name='quantity' id='".$p['name']."' value='1'/>";
-		echo "<button onClick='increase(".$p['name'].")'>+</button>";
-		echo "<button onClick='decrease(".$p['name'].")'>-</button>";
+		echo "<input type='text' width='40px' style='float: right' name='quantity' id='".$prodId."' value='1'/>";
+		echo "<button onClick='increase(".$prodId.")'>+</button>";
+		echo "<button onClick='decrease(".$prodId.")'>-</button>";
 		echo "</td><td>";
 		echo "<button class='btn btn-default' onclick=".$jsFunction.">In den Warenkorb</button></td></tr>";
 		echo "</table>";
@@ -145,13 +149,13 @@ function checkMatch($products, $searchquery){
 
 <script type="text/javascript">
 function increase(idd){
-	idd.value++;
+	document.getElementById(idd).value++;
 } 
 
 function decrease(idd){
-	if(idd.value <= 0)
+	if(document.getElementById(idd).value <= 0)
 		return;
-	idd.value--;s
+	document.getElementById(idd).value--;
 } 
 
 </script>

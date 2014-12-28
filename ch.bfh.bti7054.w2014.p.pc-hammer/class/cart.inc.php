@@ -1,11 +1,21 @@
 <?php
 class Cart {
-	private $items = array ();
+	private $products = array ();
+	private $productQuantity = array();
 	
 	public function addItem($art, $num) {
-		if (! isset ( $this->items [$art] ))
-			$this->items [$art] = 0;
-		$this->items [$art] += $num;
+		
+		$index = $art->id;
+		if (! isset ($this->products[$index] )){
+			$this->products [$index] = $art;
+		}
+		if(!isset($this->productQuantity[$index])){
+			$this->productQuantity[$index] = $num;
+		}
+		else {
+		$this->productQuantity[$index] += $num;
+		}
+		
 	}
 	
 	public function removeItem($art, $num) {
@@ -17,12 +27,24 @@ class Cart {
 		} else
 			return false;
 	}
+	private function getTotalPriceforItem($prodId, $quantity)
+	{
+		$price = $this->products[$prodId]->price;
+		return $price * $quantity;
+	}
 	
 	public function display() {
+		$totalPrice = 0;
 		echo "<table border=\"1\">";
-		echo "<tr><th>Article</th><th>Items</th></tr>";
-		foreach ( $this->items as $art => $num )
-			echo "<tr><td>$art</td><td>$num</td></tr>";
+		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th></tr>";
+		foreach ($this->products as $art ){
+			$prodId = $art->id;
+			$quantity = $this->productQuantity[$prodId];
+			$price = $this->getTotalPriceforItem($prodId, $quantity);
+			$totalPrice+= $price;
+			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td></tr>";
+		}
+		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
 	}
 }
