@@ -16,7 +16,7 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
+$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
 
 
 
@@ -42,23 +42,32 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' =>
 
 </head>
 <body>
+<div style="margin-left:10px">
 	<div class="row">
 		<div class="col-md-4">
 			<h1>Logo</h1>
-		</div>^
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-3">left</div>
 		<div class="col-md-6">
-		
-		<form action="index.php" method="get">
-			<input type="search" placeholder="produkt, kategorie, ...	" class="form-control" name="search"/>
-			<button type="submit" class="btn btn-default">suchen</button>
-			<input type='textbox' hidden name='page' value='catalog'/>
-		</form>
-				
-			
-			
+
+			<form action="index.php" method="get">
+
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search"
+						name="search">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+							<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</div>
+				</div>
+				<input type='textbox' hidden name='page' value='catalog' />
+			</form>
+
+
+
 		</div>
 		<div class="col-md-3">
 		<?php
@@ -81,9 +90,18 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' =>
 	<div class="row">
 		<div class="col-md-3">
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active"><a href="index.php">Home</a></li>
-				<li role="presentation"><a href="?page=catalog">Katalog</a></li>
-				<li role="presentation"><a href="#">Kontakt</a></li>
+				<?php 
+				foreach($pages as $key => $value){
+					if(!isset($_GET['page']) && $key == 'home'){
+						echo "<li role='presentation' class='active'><a href='?page=".$key."'>".$key."</a></li>";
+					}
+					else if(isset($_GET['page']) && $_GET['page'] == $key){
+						echo "<li role='presentation' class='active'><a href='?page=".$key."'>".$key."</a></li>";
+					}else{
+						echo "<li role='presentation'><a href='?page=".$key."'>".$key."</a></li>";
+					}
+				}
+				?>
 			</ul>
 
 		</div>
@@ -129,6 +147,7 @@ $pages = array('catalog' => 'catalog.php','contact' => 'contact.php', 'admin' =>
 		?>
 		</div>
 	</div>
+</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
