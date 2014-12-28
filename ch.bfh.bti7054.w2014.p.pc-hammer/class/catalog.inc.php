@@ -3,10 +3,11 @@ class catalog{
 	public $products = [
 			
 	];
-	
+	//better as enumerator
 	public $categories = [
 			"hdd",
-			"mainboard"
+			"mainboard",
+			"chassis"
 	];
 	
 	function __construct(){
@@ -19,6 +20,7 @@ class catalog{
 		$this->products[2] = $this->setProduct("hdd2", 100, $this->categories[0]);
 		$this->products[3] = $this->setProduct("mainboard1", 30, $this->categories[1]);
 		$this->products[4] = $this->setProduct("mainboard2", 1000, $this->categories[1]);
+		$this->products[5] = $this->setProduct("chassis1", 103, $this->categories[2]);
 	}
 	
 	function setProduct($name, $price, $type){

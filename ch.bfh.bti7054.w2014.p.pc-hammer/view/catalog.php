@@ -9,23 +9,12 @@ $products = $cat->products;
 $categories = $cat->categories;
 $onlyHDD = false;
 $onlyMainboard = false;
-$filter = "none";
-
+$filter = "";
+$searchquery = "";
 
 //filter with input box
 if(isset($_GET['filter'])){
 	$filter = $_GET['filter'];
-	if($filter == 'hdd'){
-		$onlyHDD = true;
-	}else if($filter == 'mainboard'){
-		$onlyMainboard = true;
-	}
-	else{
-		$onlyHDD = false;
-		$onlyMainboard = false;
-	}
-	
-	
 }
 
 //search for name
@@ -34,65 +23,56 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 	$searchquery = $_GET['search'];
 }
 
+//debug
+echo "filter: " . $filter . "</br>";
+echo "search: " . $searchquery;
+
 
 //filter with type seleciton
-echo "<form action='index.php' method='get' name='filterform'>";
-for ($i = 0; $i <= sizeof($cat); $i++){
-	echo $categories[$i];
-	if($filter == $categories[$i]){
-		echo "<input type='radio' name='filter' value='".$categories[$i]."'  checked />";
-	}else{
-		
-		echo "<input type='radio' name='filter' value='".$categories[$i]."'  />";
+echo "<div class='row'>";
+	echo "<h3>Filter</h3>";
+	echo "<form action='index.php' method='get' name='filterform'>";
+	for ($i = 0; $i < sizeof($categories); $i++){
+		echo $categories[$i];
+		if($filter == $categories[$i]){
+			echo "<input type='radio' name='filter' value='".$categories[$i]."'  checked /></br>";
+		}else{
+			
+			echo "<input type='radio' name='filter' value='".$categories[$i]."'  /></br>";
+		}
 	}
-}
-echo "<input type='textbox' hidden name='page' value='catalog'/>";
-echo "<input type='submit' value='submit'/>";
-
-echo '</form>';
+	echo "<input type='textbox' hidden name='page' value='catalog'/>";
+	echo "</br>";
+	echo "<input type='submit' value='submit'/>";
+	
+	echo '</form>';
+echo "</div>";
 
 
 //show products
 $counter = 0; //counts if a product is found when searching
-foreach ($products as $p){
-	if(isset($searchquery)){
-		if($p["name"] == $searchquery){
+//
+if($searchquery!= ""){
+	$results = checkMatch($products, $searchquery);
+	foreach ($results as $p){
+		showProduct($p);
+	}
+}else if($filter != ""){
+	foreach ($products as $p){
+		if($p["type"] == $filter){
 			$counter++;
-			echo "<h1>".$p["name"]."</h1>";
-			echo $p["price"];
-			echo "</br>";
-			echo $p["type"];
+			showProduct($p);
+		}else if($p["name"] == end($products)["name"] && $counter == 0){
+			echo "Kein Produkt unter diesem Namen gefunden!";
 		}else{
-			if($p["name"] == end($products)["name"] && $counter == 0){
-				echo "Kein Produkt unter diesem Namen gefunden!";
-			}
-		}
-	}else{	
-		if($onlyHDD){
-			if($p["type"] == "hdd"){
-				echo "<h1>".$p["name"]."</h1>";
-				echo $p["price"];
-				echo "</br>";
-				echo $p["type"];
-			}
-			
-		}else if($onlyMainboard){
-			if($p["type"] == "mainboard"){
-				echo "<h1>".$p["name"]."</h1>";
-				echo $p["price"];
-				echo "</br>";
-				echo $p["type"];
-			}
-			
-		}else{
-			echo "<h1>".$p["name"]."</h1>";
-			echo $p["price"];
-			echo "</br>";
-			echo $p["type"];
+			//no match
 		}
 	}
+}else{
+	foreach ($products as $p){
+		showProduct($p);
+	}
 }
-
 ?>
 <p>
 <form action="index.php" method="get">
@@ -102,21 +82,82 @@ foreach ($products as $p){
  </form>
 </p>
 
-<p>
-<form action="index.php" method="get">
- Search: <input type="text" name="search" /></br>
- <input type="submit" value="search a name" />
-  <input type='textbox' hidden name='page' value='catalog'/>
- </form>
-</p>
 
 <p>
 <form action="index.php" method="get">
- Search: <input hidden="true" type="text" name="reset" /></br>
+ Reset: <input hidden="true" type="text" name="reset" /></br>
  <input type="submit" value="reset" />
   <input type='textbox' hidden name='page' value='catalog'/>
  </form>
 </p>
 
 
+<?php 
+function showProduct($p){
+	echo "<div class='row'>";
+	echo "<h1>".$p["name"]."</h1>";
+	echo "<div class='col-xs-3 col-sm-3'>";
+		echo "<img src='' width=100px height=100px />";	
+	echo "</div>";
+	echo "<div class='col-xs-6 col-sm-6'>";
+		echo "<table class='table'>";
+		echo "<tr><td>Preis</td><td>";
+		echo $p["price"];
+		echo "</td><tr>";
+		echo "<tr><td>Typ</td><td>";
+		echo $p["type"];
+		echo "</tr><tr><td>";
+		echo "<input type='text' width='40px' style='float: right' name='quantity' id='".$p['name']."' value='1'/>";
+		echo "<button onClick='increase(".$p['name'].")'>+</button>";
+		echo "<button onClick='decrease(".$p['name'].")'>-</button>";
+		echo "</td><td>";
+		echo "<button class='btn btn-default' '>In den Warenkorb</button></td></tr>";
+		echo "</table>";
+	echo "</div>";
+	echo "</div class='row'>";
+}
+
+function checkMatch($products, $searchquery){
+	//$pattern = '/' + $searchquery + '/';
+	$matches = array();
+	$pattern = "/".$searchquery."/i"; 
+	//loop through the data
+	foreach($products as $key=>$value){
+	    //loop through each key under data sub array
+	    foreach($value as $key2=>$value2){
+	        //check for match.
+	        if(preg_match($pattern, $value2)){
+	            //add to matches array.
+	            $matches[$key]=$value;
+	            //match found, so break from foreach
+	            break;
+	        }
+	    }
+	}
+	return $matches;
+}
+	
+// 	//possible to give whole array and returns the array consisting of the elements of the input array preg_grep()
+// 	$pattern = '/' + $searchquery + '/';
+
+// 	preg_filter($pattern, $replace, $subject));
+	
+
+?>
+
+<script type="text/javascript">
+function increase(idd){
+	idd.value++;
+} 
+
+function decrease(idd){
+	if(idd.value <= 0)
+		return;
+	idd.value--;
+} 
+</script>
+<!--
+
+//-->
+</script>
 
