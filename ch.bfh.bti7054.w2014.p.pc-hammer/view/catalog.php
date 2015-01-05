@@ -26,7 +26,7 @@ echo "search: " . $searchquery;
 
 //filter with type seleciton
 echo "<div class='row'>";
-	echo "<h3>Filter</h3>";
+	echo "<h3>".$lang['filter']."</h3>";
 	echo "<form action='index.php' method='get' name='filterform'>";
 	for ($i = 1; $i <= sizeof($categories); $i++){
 		echo $categories[$i];
@@ -48,28 +48,28 @@ $counter = 0; //counts if a product is found when searching
 if($searchquery!= ""){
 	$results = checkMatch($products, $searchquery);
 	foreach ($results as $p){
-		showProduct($p);
+		showProduct($p, $lang);
 	}
 }else if($filter != ""){
 	foreach ($products as $p){
 		if($p["type"] == $filter){
 			$counter++;
-			showProduct($p);
+			showProduct($p, $lang);
 		}else if($p["name"] == end($products)["name"] && $counter == 0){
-			echo "Kein Produkt unter diesem Namen gefunden!";
+			echo $lang['noproductfound'];
 		}else{
 			//no match
 		}
 	}
 }else{
 	foreach ($products as $p){
-		showProduct($p);
+		showProduct($p, $lang);
 	}
 }
 ?>
 <p>
 <form action="index.php" method="get">
- Filter: <input type="text" name="filter" /></br>
+ <?php echo $lang['filter'] ?><input type="text" name="filter" /></br>
  <input type="submit" value="set filter" />
  <input type='textbox' hidden name='page' value='catalog'/>
  </form>
@@ -78,7 +78,7 @@ if($searchquery!= ""){
 
 <p>
 <form action="index.php" method="get">
- Reset: <input hidden="true" type="text" name="reset" /></br>
+ <?php echo $lang['reset'] ?> <input hidden="true" type="text" name="reset" /></br>
  <input type="submit" value="reset" />
   <input type='textbox' hidden name='page' value='catalog'/>
  </form>
@@ -86,9 +86,9 @@ if($searchquery!= ""){
 
 
 <?php 
-function showProduct($p){
-	
+function showProduct($p, $langarray){
 	$prodId = $p["id"];
+	$lang = $langarray;
 	//Replace spaces with | because the browser is messing up the onclick statement
 	$jsonString = "'".preg_replace('/\s+/', '|', json_encode($p))."'";
 	$jsFunction = 'addToBasket('.$jsonString.',document.getElementById("'.$prodId.'").value)';
@@ -100,17 +100,17 @@ function showProduct($p){
 	echo "</div>";
 	echo "<div class='col-xs-6 col-sm-6'>";
 		echo "<table class='table'>";
-		echo "<tr><td>Preis</td><td>";
+		echo "<tr><td>".$lang['price']."</td><td>";
 		echo $p["price"];
 		echo "</td><tr>";
-		echo "<tr><td>Typ</td><td>";
+		echo "<tr><td>".$lang['type']."</td><td>";
 		echo $p["type"];
 		echo "</tr><tr><td>";
 		echo "<input type='text' width='40px' style='float: right' name='quantity' id='".$prodId."' value='1'/>";
 		echo "<button onClick='increase(".$prodId.")'>+</button>";
 		echo "<button onClick='decrease(".$prodId.")'>-</button>";
 		echo "</td><td>";
-		echo "<button class='btn btn-default' onclick=".$jsFunction.">In den Warenkorb</button></td></tr>";
+		echo "<button class='btn btn-default' onclick=".$jsFunction.">".$lang['tocart']."</button></td></tr>";
 		echo "</table>";
 	echo "</div>";
 	echo "</div class='row'>";
@@ -134,13 +134,7 @@ function checkMatch($products, $searchquery){
 	    }
 	}
 	return $matches;
-}
-	
-// 	//possible to give whole array and returns the array consisting of the elements of the input array preg_grep()
-// 	$pattern = '/' + $searchquery + '/';
-
-// 	preg_filter($pattern, $replace, $subject));
-	
+}	
 
 ?>
 

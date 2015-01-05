@@ -1,6 +1,6 @@
 <?php
-echo "<h1>home</h1>";
-echo "<h3>Wetter in Bern</h3>";
+echo "<h1>".$lang['hometitle']."</h1>";
+echo "<h3>".$lang['weathertitle']."</h3>";
 $client = new SoapClient("http://www.webservicex.com/globalweather.asmx?wsdl", array("trace" => 1, "exception" => 0, "features"=>SOAP_SINGLE_ELEMENT_ARRAYS));
 
 $params = array(
@@ -9,6 +9,7 @@ $params = array(
 );
 
 $result = $client->__soapCall("GetWeather", array($params));
+echo $result->GetWeatherResult->location;
 echo "<pre>".print_r($result, true)."</pre>";
 
 //http://www.service-repository.com/operation/show?operation=GetWeather&portType=GlobalWeatherSoap&id=4

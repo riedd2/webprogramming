@@ -45,16 +45,19 @@ class Cart {
 	}
 	
 	private function getButtonHtml($prodId){
-		$html =  "<button onClick='changeProduct(".$prodId.",1)'>+</button>";
-		$html = $html."<button onClick='changeProduct(".$prodId.",-1)'>-</button>";
-		$html = $html."<button onClick='changeProduct(".$prodId.",-2147483647)'>X</button>";
+		$html = "<div class='btn-group' role='group' aria-label='...'>";
+		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",1)' data-toggle='tooltip' data-placement='top' title='+1 Produkt'>+</button>";
+		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",-1)' data-toggle='tooltip' data-placement='top' title='-1 Produkt'>-</button>";
+		$html .= "<button class='btn btn-default' onClick='changeProduct(".$prodId.",-2147483647)' data-toggle='tooltip' data-placement='top' title='Produkt entfernen'>X</button>";
+		$html .= "</div>";
+		
 		return $html;
 		
 	}
 	
 	public function display() {
 		$totalPrice = 0;
-		echo "<table border=\"1\">";
+		echo "<table class='table'>";
 		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th><th></th></tr>";
 		foreach ($this->products as $art ){
 			$prodId = $art->id;

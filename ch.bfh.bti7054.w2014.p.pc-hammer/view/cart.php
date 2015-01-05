@@ -13,7 +13,7 @@ function addToBasket(product, num)
 	            var cords = document.getElementById("cart");
 	            cords.innerHTML=xmlhttp.responseText;
 	        }
-	    }  
+	    } 
 }
 
 function changeProduct(prodId,num)

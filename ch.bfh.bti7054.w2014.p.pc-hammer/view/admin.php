@@ -10,7 +10,7 @@ if(!isset($_SESSION ["admin"])){
 $cat = new catalog();
 $cats = $cat->categories;
 
-echo "<h1>Insert new product</h1>";
+echo "<h1>".$lang['adminmenu']."</h1>";
 echo "<select class='selectpicker' onchange='showForm()' id='typeSelector'>";
 //kategorien anzeigen
 echo "<option selected disabled>choose type</option>";

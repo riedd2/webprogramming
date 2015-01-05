@@ -1,4 +1,5 @@
 <?php 
+include "language/lang.php";
 include_once "class/cart.inc.php";
 session_start ();
 include "Controller/LoginController.php";
@@ -8,7 +9,6 @@ function __autoload($class_name) {
 	include 'class\\'. $class_name . '.inc.php';
 }
 
-include "Controller/LoginController.php";
 # default page
 $default = 'home.php';
 
@@ -44,9 +44,29 @@ $pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'con
 <body>
 <div style="margin-left:10px">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<h1>Logo</h1>
 		</div>
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-3">
+			<div class='btn-group' role='group' aria-label='...'>
+			<?php 
+			if (isset($_GET['page'])){
+				$currentPage = $_GET['page'];
+			}else{
+				$currentPage = "";
+			}
+			
+			$germanHREF = "?page=".$currentPage."&lang=de";
+			$englishHREF = "?page=".$currentPage."&lang=en";
+			
+			?>
+				<a href="<?php echo $englishHREF?>"><button class ="btn btn-default" ><?php echo $lang['english']?></button></a>
+				<a href="<?php echo $germanHREF?>"><button class ="btn btn-default" ><?php echo $lang['german']?></button></a>
+			</div>
+		</div>
+
 	</div>
 	<div class="row">
 		<div class="col-md-3">left</div>
@@ -73,12 +93,12 @@ $pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'con
 		<?php
 		
 			if (isset ( $_SESSION ["user"] ) && isset($_SESSION ["admin"])) {
-				echo "Welcome Admin " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
-				echo "</br> <a href='?page=admin'>Adminmenu</a>";
+				echo "Welcome Admin " . $_SESSION ["user"] . "<a href='Controller/logout.php'> ".$lang['logout']."</a>";
+				echo "</br> <a href='?page=admin'>".$lang['adminmenu']."</a>";
 			}else if (isset ( $_SESSION ["user"] )) {
-				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> log out</a>";
+				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> ".$lang['logout']."</a>";
 			}else {
-				echo '<form action="index.php" method="post"><input name="user" /> User Name<br /> <input type="password"	name="pw" /> Password<br /> <button type="submit" class="btn btn-default btn-lg">Login</button></form>';
+				echo "<form action='index.php' method='post'><input name='user' /> User Name<br /> <input type='password' name='pw' /> ".$lang['password']."<br /> <button type='submit' class='btn btn-default btn-lg'>".$lang['login']."</button></form>";
 			}
 		
 		?>	
@@ -154,5 +174,12 @@ $pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'con
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	//initialize tooltip for cart (bootstrap)
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 </body>
 </html>
