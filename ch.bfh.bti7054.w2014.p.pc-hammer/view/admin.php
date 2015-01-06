@@ -7,9 +7,29 @@ if(!isset($_SESSION ["admin"])){
 	die();
 }
 
+echo "<h3>".$lang['weathertitle']."</h3>";
+$client = new SoapClient("http://www.webservicex.com/globalweather.asmx?wsdl", array("trace" => 1, "exception" => 0, "features"=>SOAP_SINGLE_ELEMENT_ARRAYS));
+
+$params = array(
+		"CountryName" => "Switzerland",
+		"CityName" => "Bern"
+);
+
+$result = $client->__soapCall("GetWeather", array($params));
+$xml = simplexml_load_string(preg_replace('/(<\?xml[^?]+?)utf-16/i', '$1utf-8', $result->GetWeatherResult));
+
+//for debugging
+//var_dump($xml);
+
+$loc =  (string)$xml->Location;
+$sky = (string)$xml->SkyConditions;
+$tempe = (string)$xml->Temperature;
+$relhum = (string)$xml->RelativeHumidity;
+
+echo sprintf($lang['weatherreport'], $loc, $sky, $tempe, $relhum);
+
 $cat = new catalog();
 $cats = $cat->categories;
-
 echo "<h1>".$lang['adminmenu']."</h1>";
 echo "<select class='selectpicker' onchange='showForm()' id='typeSelector'>";
 //kategorien anzeigen
