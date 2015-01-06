@@ -10,6 +10,7 @@ $lang['adminmenu'] = 'Adminmenu';
 
 $lang['hometitle'] = 'home';
 $lang['weathertitle'] = 'Wetter in Bern';
+$lang['weatherreport'] = 'In %s ist es %s und %s bei einer Luftfeuchtigkeit von %s';
 
 $lang['filter'] = 'Filter';
 $lang['reset'] = 'Zurücksetzen';
