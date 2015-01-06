@@ -16,7 +16,7 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
+$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php', 'checkout' => 'checkout.php');
 
 
 

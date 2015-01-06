@@ -55,6 +55,12 @@ class Cart {
 		
 	}
 	
+	private function getCheckOutButton(){
+		$checkOut="<form action='view/checkout.php'><input type='submit' value='Check Out'></form>";
+		return $checkOut;
+	
+	}
+	
 	public function display() {
 		$totalPrice = 0;
 		echo "<table class='table'>";
@@ -68,6 +74,8 @@ class Cart {
 		}
 		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
+		echo $this->getCheckOutButton();
+		
 	}
 }
 ?>
