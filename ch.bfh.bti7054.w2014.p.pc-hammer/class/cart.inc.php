@@ -56,9 +56,26 @@ class Cart {
 	}
 	
 	private function getCheckOutButton(){
-		$checkOut="<form action='view/checkout.php'><input type='submit' value='Check Out'></form>";
+		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='Check Out'></form>";
 		return $checkOut;
 	
+	}
+	
+	public function displayOrderSummary()
+	{
+		$totalPrice = 0;
+		echo "<table class='table'>";
+		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th><th></th></tr>";
+		foreach ($this->products as $art ){
+			$prodId = $art->id;
+			$quantity = $this->productQuantity[$prodId];
+			$price = $this->getTotalPriceforItem($prodId, $quantity);
+			$totalPrice+= $price;
+			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td></tr>";
+		}
+		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
+		echo "</table>";
+		echo "<button name='confirmOrder'>Confrim</button>";
 	}
 	
 	public function display() {
