@@ -3,7 +3,8 @@ global $lang;
 
 #general
 $lang['submit'] = 'Abschicken';
-$lang['back'] = 'Zurück';
+$lang['back'] = 'Zur&uuml;ck';
+$lang['pleaseselect'] = 'Bitte w&auml;hlen';
 
 #index
 $lang['german'] = 'Deutsch';
@@ -16,12 +17,13 @@ $lang['adminmenu'] = 'Adminmenu';
 #home
 $lang['hometitle'] = 'home';
 $lang["location"] = 'deine Stadt';
-$lang['weathertitle'] = 'Wetter in Bern';
+$lang['weathertitle'] = 'Wetter';
 $lang['weatherreport'] = 'In %s ist es %s und %s bei einer Luftfeuchtigkeit von %s';
+$lang['selectCity'] = 'W&auml;hle deine Stadt';
 
 #catalog
 $lang['filter'] = 'Filter';
-$lang['reset'] = 'Zurücksetzen';
+$lang['reset'] = 'Zur&uuml;cksetzen';
 $lang['noproductfound'] = 'kein Produkt gefunden';
 $lang['tocart'] = 'in den Warenkorb';
 $lang['price'] = 'Preis';

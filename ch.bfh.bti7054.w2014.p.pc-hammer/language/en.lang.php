@@ -4,6 +4,7 @@ global $lang;
 #general
 $lang["submit"] = 'submit';
 $lang['back'] = 'back';
+$lang['pleaseselect'] = 'please select';
 
 #index
 $lang['german'] = 'German';
@@ -16,8 +17,9 @@ $lang['adminmenu'] = 'Adminmenu';
 #home
 $lang['hometitle'] = 'home';
 $lang["location"] = 'your city';
-$lang['weathertitle'] = 'Weather in Bern';
+$lang['weathertitle'] = 'Weather';
 $lang['weatherreport'] = 'In %s its %s and %s at %s humidity';
+$lang['selectCity'] = 'W&auml;hle deine Stadt';
 
 #catalog
 $lang['filter'] = 'Filter';

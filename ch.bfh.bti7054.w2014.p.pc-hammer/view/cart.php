@@ -37,7 +37,9 @@ function changeProduct(prodId,num)
 	<?php 
 	if(isset ( $_SESSION ["cart"] )){
 	$_SESSION["cart"]->display();
+	
 	} ?>
+	
 </div>
 
 </body>

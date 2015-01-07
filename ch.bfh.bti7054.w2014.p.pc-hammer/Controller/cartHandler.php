@@ -16,7 +16,14 @@ if (isset ( $_GET ["prodId"] ) && isset ( $_GET ["num"] )){
 	$prodId = $_GET ["prodId"];
 	$num = $_GET ["num"];
 	$_SESSION ["cart"]->changeQuantity($prodId,$num);
+	//unset session if cart is empty
+	if($_SESSION["cart"]->isEmpty == true){
+		unset($_SESSION["cart"]);
 	}
-echo $_SESSION["cart"]->display()
+		
+	}
+if(isset ($_SESSION["cart"])){
+echo $_SESSION["cart"]->display();
+}
 
 ?>

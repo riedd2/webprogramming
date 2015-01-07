@@ -79,7 +79,7 @@ function GetNavigationLink($targetPage){
 
 	</div>
 	<div class="row">
-		<div class="col-md-3">left</div>
+		<div class="col-md-3"></div>
 		<div class="col-md-6">
 
 			<form action="index.php" method="get">

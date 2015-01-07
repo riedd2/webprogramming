@@ -2,6 +2,7 @@
 class Cart {
 	private $products = array ();
 	private $productQuantity = array();
+	public $isEmpty = true;
 	
 	public function addItem($art, $num) {
 		
@@ -15,6 +16,7 @@ class Cart {
 		else {
 		$this->productQuantity[$index] += $num;
 		}
+		$this->isEmpty = false;
 		
 	}
 	
@@ -22,6 +24,10 @@ class Cart {
 		if (isset ( $this->products [$prodId] )) {
 				unset ( $this->productQuantity [$prodId] );
 				unset ( $this->products [$prodId] );
+			//Delete Session Variable if array is empty
+			if(empty(array_filter($this->products))){
+				$this->isEmpty = true;
+			}
 			return true;
 		}
 	}
@@ -34,7 +40,8 @@ class Cart {
 			$this->removeItem($prodId);
 		}
 		else{
-			$this->productQuantity[$prodId] += $num;
+			$this->addItem($this->products[$prodId], $num);
+			//$this->productQuantity[$prodId] += $num;
 		}
 		
 	}
@@ -55,6 +62,29 @@ class Cart {
 		
 	}
 	
+	private function getCheckOutButton(){
+		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='Check Out'></form>";
+		return $checkOut;
+	
+	}
+	
+	public function displayOrderSummary()
+	{
+		$totalPrice = 0;
+		echo "<table class='table'>";
+		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th><th></th></tr>";
+		foreach ($this->products as $art ){
+			$prodId = $art->id;
+			$quantity = $this->productQuantity[$prodId];
+			$price = $this->getTotalPriceforItem($prodId, $quantity);
+			$totalPrice+= $price;
+			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td></tr>";
+		}
+		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
+		echo "</table>";
+		echo "<button name='confirmOrder'>Confrim</button>";
+	}
+	
 	public function display() {
 		$totalPrice = 0;
 		echo "<table class='table'>";
@@ -68,6 +98,8 @@ class Cart {
 		}
 		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
+		echo $this->getCheckOutButton();
+		
 	}
 }
 ?>
