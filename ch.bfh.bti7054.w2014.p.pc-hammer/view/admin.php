@@ -1,5 +1,5 @@
 <?php
-
+include "/../class/catalog.inc.php";
 //überprüfen, ob user admin ist. wenn nicht, nach 2 sekunden auf index.php weiterleiten
 if(!isset($_SESSION ["admin"])){
 	echo "sorry no admin u are";
@@ -9,7 +9,6 @@ if(!isset($_SESSION ["admin"])){
 
 $cat = new catalog();
 $cats = $cat->categories;
-echo "<h1>".$lang['adminmenu']."</h1>";
 echo "<select class='selectpicker' onchange='showForm()' id='typeSelector'>";
 //kategorien anzeigen
 echo "<option selected disabled>choose type</option>";

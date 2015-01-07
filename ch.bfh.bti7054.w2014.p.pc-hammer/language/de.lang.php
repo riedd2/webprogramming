@@ -15,7 +15,6 @@ $lang['logout'] = 'Logout';
 $lang['adminmenu'] = 'Adminmenu';
 
 #home
-$lang['hometitle'] = 'home';
 $lang["location"] = 'deine Stadt';
 $lang['weathertitle'] = 'Wetter';
 $lang['weatherreport'] = 'In %s ist es %s und %s bei einer Luftfeuchtigkeit von %s';
@@ -28,4 +27,5 @@ $lang['noproductfound'] = 'kein Produkt gefunden';
 $lang['tocart'] = 'in den Warenkorb';
 $lang['price'] = 'Preis';
 $lang['type'] = 'Typ';
+$lang['quantAvailable'] = 'Stück an Lager';
 ?>

@@ -15,11 +15,10 @@ $lang['logout'] = 'Logout';
 $lang['adminmenu'] = 'Adminmenu';
 
 #home
-$lang['hometitle'] = 'home';
 $lang["location"] = 'your city';
 $lang['weathertitle'] = 'Weather';
 $lang['weatherreport'] = 'In %s its %s and %s at %s humidity';
-$lang['selectCity'] = 'W&auml;hle deine Stadt';
+$lang['selectCity'] = 'select your city';
 
 #catalog
 $lang['filter'] = 'Filter';
@@ -28,4 +27,5 @@ $lang['noproductfound'] = 'no product found';
 $lang['tocart'] = 'to cart';
 $lang['price'] = 'price';
 $lang['type'] = 'type';
+$lang['quantAvailable'] = 'in stock';
 ?>

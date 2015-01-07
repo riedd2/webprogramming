@@ -10,7 +10,16 @@ function __autoload($class_name) {
 }
 
 
+
 #### settings ####
+# smarty configuration
+require('/vendor/smarty/smarty/libs/Smarty.class.php');
+global $smarty;
+
+$smarty = new Smarty();
+$smarty->setTemplateDir('vendor/smarty/templates');
+$smarty->setCompileDir('/vendor/smarty/templates_c');
+
 # image URL
 $imgpath = "img/";
 
@@ -50,28 +59,46 @@ function GetNavigationLink($targetPage){
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<style type="text/css">
+	#footer {
+	   bottom:0;
+	   width:100%;
+	   height:60px;   /* Height of the footer */
+	   background: #337AB7;
+	   color: white;
+	   padding: 10px;
+	}
+</style>
 </head>
 <body>
-<div style="margin-left:10px">
-	<div class="row">
-		<div class="col-md-3">
-			<h1>Logo</h1>
-		</div>
-		<div class="col-md-6">
-		</div>
-		<div class="col-md-3">
-			<div class='btn-group' role='group' aria-label='...'>
-			<?php 
+<?php 
 			if (isset($_GET['page'])){
 				$currentPage = $_GET['page'];
 			}else{
 				$currentPage = "";
 			}
 			
-			$germanHREF = "?page=".$currentPage."&lang=de";
-			$englishHREF = "?page=".$currentPage."&lang=en";
+			//remember current filter
+			$filter = isset($_GET['filter']) ? "&filter=".$_GET['filter'] : "";
+			//remember current search
+			$search = isset($_GET['search']) ? "&search=".$_GET['search'] : "";
+			//remember current location for weather service
+			$location = isset($_GET['location']) ? "&location=".$_GET['location'] : "";
+			
+			$germanHREF = "?page=".$currentPage."&lang=de".$filter.$search.$location;
+			$englishHREF = "?page=".$currentPage."&lang=en".$filter.$search.$location;
 			
 			?>
+			
+<div style="margin-left:10px; height: 100%; margin-bottom: 100px;">
+	<div class="row">
+		<div class="col-md-3">
+			<a href="index.php"><img src="img/logo.png" height="130px" /></a>
+		</div>
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-3">
+			<div class='btn-group' role='group' aria-label='...'>
 				<a href="<?php echo $englishHREF?>"><button class ="btn btn-default" ><?php echo $lang['english']?></button></a>
 				<a href="<?php echo $germanHREF?>"><button class ="btn btn-default" ><?php echo $lang['german']?></button></a>
 			</div>
@@ -103,7 +130,7 @@ function GetNavigationLink($targetPage){
 		<?php
 		
 			if (isset ( $_SESSION ["user"] ) && isset($_SESSION ["admin"])) {
-				echo "Welcome Admin " . $_SESSION ["user"] . "<a href='Controller/logout.php'> ".$lang['logout']."</a>";
+				echo "Welcome Admin ".$_SESSION ["user"]."<a href='Controller/logout.php'> ".$lang['logout']."</a>";
 				echo "</br> <a href='?page=admin'>".$lang['adminmenu']."</a>";
 			}else if (isset ( $_SESSION ["user"] )) {
 				echo "Welcome " . $_SESSION ["user"] . "<a href='Controller/logout.php'> ".$lang['logout']."</a>";
@@ -123,7 +150,7 @@ function GetNavigationLink($targetPage){
 				<?php 
 				foreach($pages as $key => $value){
 					if(!isset($_GET['page']) && $key == 'home'){
-						//echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
+						echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
 					}
 					else if(isset($_GET['page']) && $_GET['page'] == $key){
 						echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
@@ -177,10 +204,10 @@ function GetNavigationLink($targetPage){
 		}
 		?>
 		</div>
-	</div>
-	<div class="row" style="margin-bottom:10px;">
-	Current Time: <span id="time" />
-	</div>
+	</div>	
+</div>
+<div id="footer">
+Coded by team hammer | Current Time: <span id="time" />
 </div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

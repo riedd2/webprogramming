@@ -1,6 +1,4 @@
 <?php
-echo "<h1>".$lang['hometitle']."</h1>";
-
 echo "<h3>".$lang['weathertitle']."</h3>";
 
 

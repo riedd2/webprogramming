@@ -1,10 +1,12 @@
 <?php
+include "/../class/catalog.inc.php";
 $cat = new catalog();
-
+//get products
 $products = $cat->products;
+//get categories
 $categories = $cat->categories;
-$onlyHDD = false;
-$onlyMainboard = false;
+
+//default values
 $filter = "";
 $searchquery = "";
 
@@ -19,12 +21,11 @@ if(isset($_GET['search']) && $_GET['search'] != ""){
 }
 
 //debug
-echo "filter: " . $filter . "</br>";
-echo "search: " . $searchquery;
+// echo "filter: " . $filter . "</br>";
+// echo "search: " . $searchquery;
 
 
-
-//filter with type seleciton
+//filter with type selection
 echo "<div class='row'>";
 	echo "<h3>".$lang['filter']."</h3>";
 	echo "<form action='index.php' method='get' name='filterform'>";
@@ -37,24 +38,31 @@ echo "<div class='row'>";
 			echo "<input type='radio' name='filter' value='".$categories[$i]."' onChange='this.form.submit()'/></br>";
 		}
 	}
-	echo "<input type='textbox' hidden name='page' value='catalog'/>";
-	echo '</form>';
-echo "</div>";
+	?>
+	<input type='textbox' hidden name='page' value='catalog'/>
+	</form>
+	<form action="index.php" method="get">
+		<input hidden="true" type="text" name="reset" /></br>
+ 		<input type="submit" value="reset" />
+  		<input type='textbox' hidden name='page' value='catalog'/>
+ 	</form>
+</div>
 
-
+<?php 
 //show products
-$counter = 0; //counts if a product is found when searching
-//
-if($searchquery!= ""){
+//counts how many products are found when searching
+$counter = 0;
+
+if($searchquery != ""){
 	$results = checkMatch($products, $searchquery);
 	foreach ($results as $p){
-		showProduct($p, $lang, $imgpath);
+		showProduct($p, $lang, $imgpath, $GLOBALS['smarty']);
 	}
 }else if($filter != ""){
 	foreach ($products as $p){
 		if($p["type"] == $filter){
 			$counter++;
-			showProduct($p, $lang, $imgpath);
+			showProduct($p, $lang, $imgpath, $GLOBALS['smarty']);
 		}else if($p["name"] == end($products)["name"] && $counter == 0){
 			echo $lang['noproductfound'];
 		}else{
@@ -63,57 +71,32 @@ if($searchquery!= ""){
 	}
 }else{
 	foreach ($products as $p){
-		showProduct($p, $lang, $imgpath);
+		showProduct($p, $lang, $imgpath, $smarty);
 	}
 }
-?>
-<p>
-<form action="index.php" method="get">
- <?php echo $lang['filter'] ?><input type="text" name="filter" /></br>
- <input type="submit" value="set filter" />
- <input type='textbox' hidden name='page' value='catalog'/>
- </form>
-</p>
-
-
-<p>
-<form action="index.php" method="get">
- <?php echo $lang['reset'] ?> <input hidden="true" type="text" name="reset" /></br>
- <input type="submit" value="reset" />
-  <input type='textbox' hidden name='page' value='catalog'/>
- </form>
-</p>
-
-
-<?php 
-function showProduct($p, $langarray, $imgpath){
+ 
+function showProduct($p, $langarray, $imgpath, $smarty){
 	$prodId = $p["id"];
 	$lang = $langarray;
 	//Replace spaces with | because the browser is messing up the onclick statement
 	$jsonString = "'".preg_replace('/\s+/', '|', json_encode($p))."'";
-	$jsFunction = 'addToBasket('.$jsonString.',document.getElementById("'.$prodId.'").value)';
+	$jsFunction = "addToBasket(".$jsonString.",document.getElementById('".$prodId."').value)";
 
-	echo "<div class='row'>";
-	echo "<h1>".$p["name"]."</h1>";
-	echo "<div class='col-xs-3 col-sm-3'>";
-		echo "<img src='".$imgpath.$p["image"]."' width=100px height=100px />";	
-	echo "</div>";
-	echo "<div class='col-xs-6 col-sm-6'>";
-		echo "<table class='table'>";
-		echo "<tr><td>".$lang['price']."</td><td>";
-		echo $p["price"];
-		echo "</td><tr>";
-		echo "<tr><td>".$lang['type']."</td><td>";
-		echo $p["type"];
-		echo "</tr><tr><td>";
-		echo "<input type='text' width='40px' style='float: right' name='quantity' id='".$prodId."' value='1'/>";
-		echo "<button onClick='increase(".$prodId.")'>+</button>";
-		echo "<button onClick='decrease(".$prodId.")'>-</button>";
-		echo "</td><td>";
-		echo "<button class='btn btn-default' onclick=".$jsFunction.">".$lang['tocart']."</button></td></tr>";
-		echo "</table>";
-	echo "</div>";
-	echo "</div class='row'>";
+	$smarty->assign('name', $p["name"]);
+	$smarty->assign('image', $p["image"]);
+	$smarty->assign('langquantAvailable', $lang['quantAvailable']);
+	$smarty->assign('quantAvailable', $p["quantAvailable"]);
+	$smarty->assign('langprice', $lang['price']);
+	$smarty->assign('price', $p["price"]);
+	$smarty->assign('imgpath', $imgpath);
+	$smarty->assign('langtype', $lang['type']);
+	$smarty->assign('type', $p['type']);
+	$smarty->assign('prodid', $prodId);
+	$smarty->assign('jsfunction', $jsFunction);
+	$smarty->assign('langtocart', $lang['tocart']);
+	
+	$smarty->display('index.tpl');
+
 }
 
 function checkMatch($products, $searchquery){
@@ -139,8 +122,10 @@ function checkMatch($products, $searchquery){
 ?>
 
 <script type="text/javascript">
-function increase(idd){
-	document.getElementById(idd).value++;
+function increase(idd, max){
+	if(document.getElementById(idd).value < max){
+		document.getElementById(idd).value++;
+	}
 } 
 
 function decrease(idd){

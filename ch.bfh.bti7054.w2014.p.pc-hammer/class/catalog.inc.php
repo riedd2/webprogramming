@@ -44,17 +44,18 @@ class catalog{
 		$res = $db->queryDB();
 		
 		while($row = $res->fetch_assoc()){
-			$this->products[$row['id_product']] = $this->setProduct($row['id_product'],$row['name'], $row['price'], $this->categories[$row['id_category']], $row['image']);
+			$this->products[$row['id_product']] = $this->setProduct($row['id_product'],$row['name'], $row['price'], $this->categories[$row['id_category']], $row['image'], $row['quantAvailable']);
 		}
 	}
 	
-	function setProduct($id, $name, $price, $type, $image){
+	function setProduct($id, $name, $price, $type, $image, $quantAvailable){
 		$product = [
 			"id" => $id,
 			"name" => $name,
 			"price" => $price,
 			"type" => $type,
-			"image" => $image
+			"image" => $image,
+			"quantAvailable" => $quantAvailable
 		];
 		
 		return $product;
