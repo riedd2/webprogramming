@@ -5,10 +5,14 @@ session_start ();
 include "Controller/LoginController.php";
 include "class/helper.php";
 
-
 function __autoload($class_name) {
 	include 'class\\'. $class_name . '.inc.php';
 }
+
+
+#### settings ####
+# image URL
+$imgpath = "img/";
 
 # default page
 $default = 'home.php';
@@ -75,7 +79,7 @@ function GetNavigationLink($targetPage){
 
 	</div>
 	<div class="row">
-		<div class="col-md-3">left</div>
+		<div class="col-md-3"></div>
 		<div class="col-md-6">
 
 			<form action="index.php" method="get">
