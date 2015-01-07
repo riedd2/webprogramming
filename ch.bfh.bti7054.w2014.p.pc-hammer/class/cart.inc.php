@@ -2,6 +2,7 @@
 class Cart {
 	private $products = array ();
 	private $productQuantity = array();
+	public $isEmpty = true;
 	
 	public function addItem($art, $num) {
 		
@@ -15,6 +16,7 @@ class Cart {
 		else {
 		$this->productQuantity[$index] += $num;
 		}
+		$this->isEmpty = false;
 		
 	}
 	
@@ -22,6 +24,10 @@ class Cart {
 		if (isset ( $this->products [$prodId] )) {
 				unset ( $this->productQuantity [$prodId] );
 				unset ( $this->products [$prodId] );
+			//Delete Session Variable if array is empty
+			if(empty(array_filter($this->products))){
+				$this->isEmpty = true;
+			}
 			return true;
 		}
 	}
@@ -34,7 +40,8 @@ class Cart {
 			$this->removeItem($prodId);
 		}
 		else{
-			$this->productQuantity[$prodId] += $num;
+			$this->addItem($this->products[$prodId], $num);
+			//$this->productQuantity[$prodId] += $num;
 		}
 		
 	}

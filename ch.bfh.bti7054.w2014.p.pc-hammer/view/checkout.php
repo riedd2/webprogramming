@@ -1,14 +1,16 @@
-<?php
-if (isset($_SESSION ["cart"])){
-	echo "<h3> Order Summary </h3>";
-	$_SESSION["cart"]->displayOrderSummary();
-	
-}
-else{
-	echo "no products in chart";
-}
+<html>
+<body>
+<?php if (isset($_SESSION ["cart"])):?>
+<h3> Order Summary </h3>
+ <?php $_SESSION["cart"]->displayOrderSummary(); ?>
+
 	
 	
-	
-	
-		?>
+
+
+<?php else: ?>
+	"no products in chart"
+<?php endif ?>
+
+</body>
+</html>
