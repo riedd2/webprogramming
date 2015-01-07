@@ -1,8 +1,12 @@
 <?php
+
+
+
 class Cart {
 	private $products = array ();
 	private $productQuantity = array();
 	public $isEmpty = true;
+
 	
 	public function addItem($art, $num) {
 		
@@ -53,9 +57,9 @@ class Cart {
 	
 	private function getButtonHtml($prodId){
 		$html = "<div class='btn-group' role='group' aria-label='...'>";
-		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",1)' data-toggle='tooltip' data-placement='top' title='+1 Produkt'>+</button>";
-		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",-1)' data-toggle='tooltip' data-placement='top' title='-1 Produkt'>-</button>";
-		$html .= "<button class='btn btn-default' onClick='changeProduct(".$prodId.",-2147483647)' data-toggle='tooltip' data-placement='top' title='Produkt entfernen'>X</button>";
+		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",1)' data-toggle='tooltip' data-placement='top' title='+1 Product'>+</button>";
+		$html .= "<button class ='btn btn-default' onClick='changeProduct(".$prodId.",-1)' data-toggle='tooltip' data-placement='top' title='-1 Product'>-</button>";
+		$html .= "<button class='btn btn-default' onClick='changeProduct(".$prodId.",-2147483647)' data-toggle='tooltip' data-placement='top' title='remove Product'>X</button>";
 		$html .= "</div>";
 		
 		return $html;
@@ -63,7 +67,7 @@ class Cart {
 	}
 	
 	private function getCheckOutButton(){
-		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='Check Out'></form>";
+		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='Checkout'></form>";
 		return $checkOut;
 	
 	}
@@ -82,7 +86,7 @@ class Cart {
 		}
 		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
-		echo "<button name='confirmOrder'>Confrim</button>";
+		echo "<button name='confirmOrder'>".$lang['checkout']."</button>";
 	}
 	
 	public function display() {

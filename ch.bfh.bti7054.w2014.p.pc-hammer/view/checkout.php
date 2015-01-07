@@ -1,5 +1,8 @@
 <html>
 <head>
+<style type="text/css">
+.redborder { border: 1px solid red; }
+</style>
 <script type="text/javascript">
 
 function setHiddenValue(id,val){
@@ -18,6 +21,96 @@ function hideAddressForm(value){
 
 	//set the hidden value
 	setHiddenValue("selectedShippment",value);
+}
+
+function addErrorMessage(id)
+{
+	var errorClass = " redborder";
+	document.getElementById(id).className += errorClass;
+}
+
+function removeErrorMessage(id)
+{
+	var errorClass = " redborder";
+	document.getElementById(id).className = document.getElementById(id).className.replace(errorClass," ");
+}
+
+function areRadioButtonsChecked(grpName) {
+	  // All <input> tags...
+	  var radios = document.getElementsByName(grpName);
+	  for (var i=0; i<radios.length; i++) {
+	    if (radios[i].type == 'radio' && radios[i].checked) {
+	      return true;
+	    } 
+	  }
+	  // End of the loop, return false
+	  return false;
+	}
+
+function checkIfSpecialCtrlOk(id){
+
+	switch(id) {
+    case "req_email":
+        var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var email = document.getElementById(id).value;
+        return email_regex.test(email);
+        break;
+        
+    case "req_zip":
+    	var zipcode_regex = /^\d{4}$/;
+    	var zip = document.getElementById(id).value;
+    	return zipcode_regex.test(zip);
+        break;
+    default:
+        return true;
+}
+}
+
+function validateForm(){
+
+	
+	var success = true;
+	//Check billing and shipping
+	if(!areRadioButtonsChecked("delivery")){
+		alert("Please select Shippment Methode");
+		success = false;
+	}
+	
+	if(!areRadioButtonsChecked("payment")){
+		alert("Please select Payment Methode");
+		sucess = false;
+	}
+	
+	//Get all components from form and check if the requiret ones are filled
+	var comps = document.getElementsByName("formElement");
+	for(i = 0; i < comps.length; i++)
+	{
+		if(isRequiret(comps[i].id)){
+			if(!comps[i].value)
+			{
+				addErrorMessage(comps[i].id)
+				success = false;
+				continue;
+			}
+			if(!checkIfSpecialCtrlOk(comps[i].id)){
+				addErrorMessage(comps[i].id)
+				success = false;
+				continue;
+			}
+
+			removeErrorMessage(comps[i].id);
+		}
+		removeErrorMessage(comps[i].id);
+	}
+
+	return success;
+	
+}
+
+function isRequiret(ctrlId)
+{
+	var target = "req_";
+	return ctrlId.substring(0, target.length) === target;
 }
 
 
@@ -42,25 +135,26 @@ function hideAddressForm(value){
 
 <br>
 
-<h4>Shippment / Billing address:</h4>
+
 	<div class="row">
         <div class="span8">
-    		<form action="billing" method="post" class="form-horizontal" id="billingform" accept-charset="utf-8">
+    		<form id="billingform" action="view/confirmationPage.php" method="POST" class="form-horizontal" onsubmit="return validateForm()">
     		<div class="container" id="addressForm" style="display: none">
+    		<h4>Shippment / Billing address:</h4>
     			<div class="control-group">
     				<label for="email" class="control-label">	
     					Billing E-Mail 
     				</label>
     				<div class="controls">
-    					<input name="email" type="email" value="" id="email">
+    					<input name="formElement" type="text" value="" id="req_email">
     				</div>
     			</div>
      
-    			<div class="control-group">
+    			<div class="control-group error">
     				<label for="address" class="control-label">	
     					Street Address
     				</label>
-    				<div class="controls"><input name="address" placeholder="Musterstreet 12" type="text" value="" id="address"><span class="help-inline">  Street Name and number</span>
+    				<div class="controls"><input name="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
     				</div>
     			</div>
      
@@ -68,7 +162,7 @@ function hideAddressForm(value){
     				<label for="zip" class="control-label">	
     					Zip Code
     				</label>
-    				<div class="controls"><input name="zip" type="text" value="" id="zip">
+    				<div class="controls"><input name="formElement" type="text" value="" id="req_zip">
     				</div>
     			</div>
      
@@ -76,7 +170,7 @@ function hideAddressForm(value){
     				<label for="city" class="control-label">	
     					City
     				</label>
-    				<div class="controls"><input name="city" type="text" value="" id="city">
+    				<div class="controls"><input name="formElement" type="text" value="" id="req_city">
     				</div>
     			</div>
     			
@@ -85,7 +179,7 @@ function hideAddressForm(value){
     					Country
     				</label>
     				<div class="controls">
-    					<select name="country" id="country">
+    					<select name="formElement" id="req_country">
     						<option value=""></option>
     						<option value="AU">Australia</option>
     						<option value="DE">Germany</option>
@@ -96,15 +190,15 @@ function hideAddressForm(value){
     			<label for="comment" class="control-label">	
     					Comment
     				</label>
-    			<textarea class="form-control" rows="3" name="comment" style="width: 300px"></textarea>
+    			<textarea class="form-control" rows="3" name="formElement" id="comment" style="width: 300px"></textarea>
     			
     			<div id="hiddenFields" style="display: none">
-    			<input id="selectedShippment"  type="text">
-    			<input id="selectedPayment"  type="text">
+    			<input type="hidden" id="selectedShippment" value="">
+    			<input  type="hidden" id="selectedPayment" value="">
     			</div>
-     </div>	
+     		</div>	
     			<div class="form-actions">
-    				<button type="submit" class="btn btn-large btn-primary">Next</button>
+    				<button type="submit" class="btn btn-large btn-primary" >Next</button>
     			</div>
     		</form>
     	</div> <!-- .span8 -->

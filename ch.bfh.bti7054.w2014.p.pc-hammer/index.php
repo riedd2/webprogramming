@@ -1,5 +1,7 @@
 <?php 
 include "language/lang.php";
+include "language/de.lang.php";
+include "language/en.lang.php";
 include_once "class/cart.inc.php";
 session_start ();
 include "Controller/LoginController.php";

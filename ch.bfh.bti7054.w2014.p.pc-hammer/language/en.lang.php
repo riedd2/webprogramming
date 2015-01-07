@@ -28,4 +28,13 @@ $lang['noproductfound'] = 'no product found';
 $lang['tocart'] = 'to cart';
 $lang['price'] = 'price';
 $lang['type'] = 'type';
+
+#checkout
+$lang['checkout'] = 'Checkout';
+$lang['product'] = 'Product';
+$lang['addProduct'] = 'add Product';
+$lang['remProduct'] = 'delete Product';
+$lang['deleteProduct'] = 'remove Product';
+$lang['quantity'] = 'Quantity';
+$lang['price'] = 'Price';
 ?>
