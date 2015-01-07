@@ -3,11 +3,16 @@ include "language/lang.php";
 include_once "class/cart.inc.php";
 session_start ();
 include "Controller/LoginController.php";
-
+include "class/helper.php";
 
 function __autoload($class_name) {
 	include 'class\\'. $class_name . '.inc.php';
 }
+
+
+#### settings ####
+# image URL
+$imgpath = "img/";
 
 # default page
 $default = 'home.php';
@@ -16,9 +21,14 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php');
+$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php', '_checkout' => 'checkout.php');
 
-
+function GetNavigationLink($targetPage){
+	if(Helper::startsWith($targetPage, "_")){
+	return "<a href='?page=".$targetPage."' style='display:none'>".$targetPage."</a>";
+	}
+	return "<a href='?page=".$targetPage."'>".$targetPage."</a>";
+}
 
 
 ?>
@@ -113,12 +123,13 @@ $pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'con
 				<?php 
 				foreach($pages as $key => $value){
 					if(!isset($_GET['page']) && $key == 'home'){
-						echo "<li role='presentation' class='active'><a href='?page=".$key."'>".$key."</a></li>";
+						//echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
 					}
 					else if(isset($_GET['page']) && $_GET['page'] == $key){
-						echo "<li role='presentation' class='active'><a href='?page=".$key."'>".$key."</a></li>";
+						echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
 					}else{
-						echo "<li role='presentation'><a href='?page=".$key."'>".$key."</a></li>";
+						echo "<li role='presentation'>".GetNavigationLink($key)."</li>";
+					
 					}
 				}
 				?>

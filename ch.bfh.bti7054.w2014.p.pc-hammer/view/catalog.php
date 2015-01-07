@@ -48,13 +48,13 @@ $counter = 0; //counts if a product is found when searching
 if($searchquery!= ""){
 	$results = checkMatch($products, $searchquery);
 	foreach ($results as $p){
-		showProduct($p, $lang);
+		showProduct($p, $lang, $imgpath);
 	}
 }else if($filter != ""){
 	foreach ($products as $p){
 		if($p["type"] == $filter){
 			$counter++;
-			showProduct($p, $lang);
+			showProduct($p, $lang, $imgpath);
 		}else if($p["name"] == end($products)["name"] && $counter == 0){
 			echo $lang['noproductfound'];
 		}else{
@@ -63,7 +63,7 @@ if($searchquery!= ""){
 	}
 }else{
 	foreach ($products as $p){
-		showProduct($p, $lang);
+		showProduct($p, $lang, $imgpath);
 	}
 }
 ?>
@@ -86,7 +86,7 @@ if($searchquery!= ""){
 
 
 <?php 
-function showProduct($p, $langarray){
+function showProduct($p, $langarray, $imgpath){
 	$prodId = $p["id"];
 	$lang = $langarray;
 	//Replace spaces with | because the browser is messing up the onclick statement
@@ -96,7 +96,7 @@ function showProduct($p, $langarray){
 	echo "<div class='row'>";
 	echo "<h1>".$p["name"]."</h1>";
 	echo "<div class='col-xs-3 col-sm-3'>";
-		echo "<img src='' width=100px height=100px />";	
+		echo "<img src='".$imgpath.$p["image"]."' width=100px height=100px />";	
 	echo "</div>";
 	echo "<div class='col-xs-6 col-sm-6'>";
 		echo "<table class='table'>";
