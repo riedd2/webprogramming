@@ -23,9 +23,12 @@ $lang['mainboard'] = 'mainboard';
 $lang['german'] = 'German';
 $lang['english'] = 'English';
 $lang['login'] = 'Login';
+$lang['username'] = 'usern name';
 $lang['password'] = 'Password';
 $lang['logout'] = 'Logout';
 $lang['adminmenu'] = 'Adminmenu';
+$lang['email'] = 'E-Mail';
+$lang['confirm'] = 'Best&auml;tigen';
 
 $lang['codedby'] = 'Entwickelt von PCHAMMER';
 $lang['currenttime'] = 'Zeit: ';
@@ -76,4 +79,8 @@ $lang['city'] = 'city';
 $lang['country'] = 'country';
 $lang['comment'] = 'comment';
 $lang['confirmorder'] = 'confirm order';
+
+#admin
+$lang['inserted'] = 'new user inserted';
+$lang['notinserted'] = 'please check your input';
 ?>

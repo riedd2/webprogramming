@@ -6,7 +6,43 @@ if(!isset($_SESSION ["admin"])){
 	header('Refresh: 2; URL=/index.php',true, 303);
 	die();
 }
+?>
 
+<form action="index.php" method="GET">
+<?php echo $lang['username']?>: <input type="text" name="username"/><br />
+<?php echo $lang['password']?>: <input type="text" name="password"/><br />
+<?php echo $lang['email']?>: <input type="text" name="email"/><br />
+<?php echo $lang['adminmenu']?>: <select name="admin">
+<option>0</option>
+<option>1</option>
+</select><br />
+<button class ="btn btn-default" ><?php echo $lang['confirm']?></button><br />
+<input type='textbox' hidden name='page' value='_admin'/>
+</form>
+
+
+<?php 
+if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['email']) && isset($_GET['admin'])){
+	if($_GET['username'] != "" && $_GET['password'] != "" && $_GET['email'] != "" && $_GET['admin'] != ""){
+		$user = $_GET['username'];
+		$email = $_GET['email'];
+		$password = $_GET['password'];
+		$admin = $_GET['admin'];
+		$db = new dbconnector();
+		$query = "INSERT INTO `pchammer`.`user` (`username`, `email`, `password`, `admin`) VALUES ('%s', '%s', '%s', '%d');";
+		$query = sprintf($query, $user, $email, $password, $admin);
+		$db->setQuery($query);
+		if($db->queryDB()){
+			echo "<h3>".$lang['inserted']."</h3>";
+		}else{
+			echo "<h3>".$lang['notinserted']."</h3>";
+		}
+	}else{
+		echo "<h3>".$lang['notinserted']."</h3>";
+	}	
+}
+
+echo "<br /><br />	funktioniert noch nicht.. <br />";
 $cat = new catalog();
 $cats = $cat->categories;
 echo "<select class='selectpicker' onchange='showForm()' id='typeSelector'>";

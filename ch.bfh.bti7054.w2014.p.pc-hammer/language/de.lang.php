@@ -23,9 +23,13 @@ $lang['mainboard'] = 'Mainboard';
 $lang['german'] = 'Deutsch';
 $lang['english'] = 'Englisch';
 $lang['login'] = 'Login';
+$lang['username'] = 'Benutzername';
 $lang['password'] = 'Passwort';
 $lang['logout'] = 'Logout';
 $lang['adminmenu'] = 'Adminmenu';
+$lang['email'] = 'E-Mail';
+$lang['admin'] = 'Adminmenu';
+$lang['confirm'] = 'Best&auml;tigen';
 
 $lang['codedby'] = 'Entwickelt von PCHAMMER';
 $lang['currenttime'] = 'Zeit: ';
@@ -54,9 +58,9 @@ $lang['total'] = 'Total';
 #checkout
 $lang['checkout'] = 'Zur Kasse';
 $lang['product'] = 'Artikel';
-$lang['addProduct'] = 'Artikel hinzufügen';
+$lang['addProduct'] = 'Artikel hinzuf&uuml;gen';
 $lang['remProduct'] = 'Artikel entfernen';
-$lang['deleteProduct'] = 'Artikel löschen';
+$lang['deleteProduct'] = 'Artikel l&ouml;schen';
 $lang['quantity'] = 'Anzahl';
 $lang['price'] = 'Preis';
 $lang['quantAvailable'] = 'St&uuml;ck an Lager';
@@ -77,4 +81,7 @@ $lang['country'] = 'Land';
 $lang['comment'] = 'Kommentar';
 $lang['confirmorder'] = 'Bestellung best&auml;tigen';
 
+#admin
+$lang['inserted'] = 'Neuer Benutzer hinzugef&uuml;gt';
+$lang['notinserted'] = 'Kontrollier bitte deine Eingaben';
 ?>
