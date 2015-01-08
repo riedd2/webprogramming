@@ -42,7 +42,7 @@ if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['email'])
 	}	
 }
 
-echo "<br /><br />	funktioniert noch nicht.. <br />";
+/* echo "<br /><br />	funktioniert noch nicht.. <br />";
 $cat = new catalog();
 $cats = $cat->categories;
 echo "<select class='selectpicker' onchange='showForm()' id='typeSelector'>";
@@ -52,7 +52,7 @@ foreach ($cats as $c){
 	echo "<option>".$c."</option>";
 }
 echo "</select>";
-echo "Produkttyp <br />";
+echo "Produkttyp <br />"; */
 ?>
 
 <!-- 
