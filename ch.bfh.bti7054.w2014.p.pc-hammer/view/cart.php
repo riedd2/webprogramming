@@ -33,7 +33,7 @@ function changeProduct(prodId,num)
 
 </script></head>
 <body>
-	<h3>Shopping Cart:</h3>
+	<h3><?php echo $lang['shoppingcart'] ?></h3>
 	<div id="cart">
 	<?php 
 	if(isset ( $_SESSION ["cart"] )){

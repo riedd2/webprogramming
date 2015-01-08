@@ -48,17 +48,17 @@ function destroySession(sessionName)
 <div id="summary">
 <h2>Order Summary: </h2>
 	<div class="payment_shippment">
-		<label  class="control-label"> Billing Method: </label> <?php echo $_POST['selectedPayment'];?> <br>
-		<label  class="control-label"> Shipping Method: </label> <?php echo $_POST['selectedShippment'];?>
+		<label  class="control-label"> <?php echo $lang['paymentmethod']?>: </label> <?php echo $lang[$_POST['selectedPayment']];?> <br>
+		<label  class="control-label"> <?php echo $lang['shippmenttype']?>: </label> <?php echo $lang[$_POST['selectedShippment']];?>
 	</div>
 <?php if ($_POST['selectedShippment'] == 'mail'):?>
 	<div class="shippingAddress">
-		<label  class="control-label"> Billing E-Mail: </label> <?php echo $_POST['formElement'][0];?> <br>
-		<label	class="control-label"> Street Address: </label> <?php echo $_POST['formElement'][1];?> <br>
-		<label class="control-label"> Zip Code: </label>  <?php echo $_POST['formElement'][2];?> <br>
-		<label class="control-label"> City: </label>  <?php echo $_POST['formElement'][3];?> <br>
-		<label class="control-label"> Country: </label>  <?php echo $_POST['formElement'][4];?> <br>
-		<label class="control-label"> Comment: </label>  <?php echo $_POST['formElement'][5];?> <br>
+		<label  class="control-label"> <?php echo $lang['billingemail']?>: </label> <?php echo $_POST['formElement'][0];?> <br>
+		<label	class="control-label"> <?php echo $lang['streetaddress']?>: </label> <?php echo $_POST['formElement'][1];?> <br>
+		<label class="control-label"> <?php echo $lang['ZIP']?>: </label>  <?php echo $_POST['formElement'][2];?> <br>
+		<label class="control-label"> <?php echo $lang['city']?>: </label>  <?php echo $_POST['formElement'][3];?> <br>
+		<label class="control-label"> <?php echo $lang['country']?>: </label>  <?php echo $_POST['formElement'][4];?> <br>
+		<label class="control-label"> <?php echo $lang['comment']?>: </label>  <?php echo $_POST['formElement'][5];?> <br>
 	</div>
 <?php endif ?>
 
@@ -76,7 +76,7 @@ $jsonstr = "'".json_encode($_SESSION["cart"]->getProductQuantity())."'";
 
 
 
-echo "<button name='confirm' onclick="."confirmOrder($jsonstr)".">Confirm Order</button>"
+echo "<button name='confirm' onclick="."confirmOrder($jsonstr)".">".$lang['confirmorder']."</button>"
 
 ?>
 </div>

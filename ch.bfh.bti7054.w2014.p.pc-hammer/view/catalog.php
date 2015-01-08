@@ -43,7 +43,7 @@ echo "<div class='row'>";
 	</form>
 	<form action="index.php" method="get">
 		<input hidden="true" type="text" name="reset" /></br>
- 		<input type="submit" value="reset" />
+ 		<input type="submit" value="<?php echo $lang['reset']?>" />
   		<input type='textbox' hidden name='page' value='catalog'/>
  	</form>
 </div>

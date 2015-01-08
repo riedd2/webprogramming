@@ -140,18 +140,18 @@ function isRequiret(ctrlId)
 </head>
 <body>
 <?php if (isset($_SESSION ["cart"])):?>
-<h2> Payment & Shippment </h2>
+<h2><?php echo $lang['paymentshipping']?></h2>
 <br>
-<h4> Select shippment type </h4>
+<h4><?php echo $lang['shippmenttype']?></h4>
 <div name="shippmentSelction">
-<input type="radio" name="delivery" id="mail" value="mail" onclick="hideAddressForm('mail')"> Mail <br>
-<input type="radio" name="delivery" id="mail" value="pickup" onclick="hideAddressForm('pickup')"> Pick-up at Store <br>
+<input type="radio" name="delivery" id="mail" value="mail" onclick="hideAddressForm('mail')"> <?php echo $lang['mail']?> <br>
+<input type="radio" name="delivery" id="mail" value="pickup" onclick="hideAddressForm('pickup')"> <?php echo $lang['pickup']?> <br>
 </div>
 
-<h4> Select payment methode </h4>
+<h4><?php echo $lang['paymentmethod']?></h4>
 <div name="paymentSelction">
-<input type="radio" name="payment" value="bill" onclick="setHiddenValue('selectedPayment','bill')"> Bill <br>
-<input type="radio" name="payment" value="paypal" onclick="setHiddenValue('selectedPayment','paypal')"> PayPal <br>
+<input type="radio" name="payment" value="bill" onclick="setHiddenValue('selectedPayment','bill')"> <?php echo $lang['bill']?> <br>
+<input type="radio" name="payment" value="paypal" onclick="setHiddenValue('selectedPayment','paypal')"> <?php echo $lang['paypal']?> <br>
 </div>
 
 <br>
@@ -165,10 +165,10 @@ function isRequiret(ctrlId)
     			<input  type="hidden" id="selectedPayment" value="" name="selectedPayment">
     			
     		<div class="container" id="addressForm" style="display: none">
-    		<h4>Shippment / Billing address:</h4>
+    		<h4><?php echo $lang['shippmentbillingadress']?></h4>
     			<div class="control-group">
     				<label for="email" class="control-label">	
-    					Billing E-Mail 
+    					<?php echo $lang['billingemail']?>
     				</label>
     				<div class="controls">
     					<input name="formElement[0]" type="text" value="" class="formElement" id="req_email">
@@ -177,7 +177,7 @@ function isRequiret(ctrlId)
      
     			<div class="control-group error">
     				<label for="address" class="control-label">	
-    					Street Address
+    					<?php echo $lang['streetaddress']?>
     				</label>
     				<div class="controls"><input name="formElement[1]" class="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
     				</div>
@@ -185,7 +185,7 @@ function isRequiret(ctrlId)
      
     			<div class="control-group">
     				<label for="zip" class="control-label">	
-    					Zip Code
+    					<?php echo $lang['zipcode']?>
     				</label>
     				<div class="controls"><input name="formElement[2]" class="formElement" type="text" value="" id="req_zip">
     				</div>
@@ -193,7 +193,7 @@ function isRequiret(ctrlId)
      
     			<div class="control-group">
     				<label for="city" class="control-label">	
-    					City
+    					<?php echo $lang['city']?>
     				</label>
     				<div class="controls"><input name="formElement[3]" class="formElement" type="text" value="" id="req_city">
     				</div>
@@ -201,7 +201,7 @@ function isRequiret(ctrlId)
     			
     			<div class="control-group">
     				<label for="country" class="control-label">	
-    					Country
+    					<?php echo $lang['country']?>
     				</label>
     				<div class="controls">
     					<select name="formElement[4]" class="formElement" id="req_country">
@@ -213,14 +213,14 @@ function isRequiret(ctrlId)
     				</div>
     			</div>
     			<label for="comment" class="control-label">	
-    					Comment
+    					<?php echo $lang['comment']?>
     				</label>
     			<textarea class="form-control" rows="3" name="formElement[5]" class="formElement" id="comment" style="width: 300px"></textarea>
     			
 
      		</div>	
     			<div class="form-actions">
-    				<button type="submit" class="btn btn-large btn-primary" >Next</button>
+    				<button type="submit" class="btn btn-large btn-primary" ><?php echo $lang['next']?></button>
     			</div>
     		</form>
     	</div> <!-- .span8 -->

@@ -1,6 +1,5 @@
 <?php
-
-
+if(!isset($GLOBALS)) session_start();
 
 class Cart {
 	private $products = array ();
@@ -71,7 +70,7 @@ class Cart {
 	}
 	
 	private function getCheckOutButton(){
-		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='Checkout'></form>";
+		$checkOut="<form action='index.php?page=_checkout' method='post'><input type='submit' value='checkout'></form>";
 		return $checkOut;
 	
 	}
@@ -80,7 +79,7 @@ class Cart {
 	{
 		$totalPrice = 0;
 		echo "<table class='table'>";
-		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th><th></th></tr>";
+		echo "<tr><th>".$GLOBALS['lang']['articel']."</th><th>".$GLOBALS['lang']['quantity']."</th><th>".$GLOBALS['lang']['price']."</th><th></th></tr>";
 		foreach ($this->products as $art ){
 			$prodId = $art->id;
 			$quantity = $this->productQuantity[$prodId];
@@ -88,7 +87,7 @@ class Cart {
 			$totalPrice+= $price;
 			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td></tr>";
 		}
-		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
+		echo "<tr><td> <b>".$GLOBALS['lang']['total']."</b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
 		
 	}
@@ -96,15 +95,15 @@ class Cart {
 	public function display() {
 		$totalPrice = 0;
 		echo "<table class='table'>";
-		echo "<tr><th>Artikel</th><th>Anzahl</th><th>Preis</th><th></th></tr>";
+		echo "<tr><th>articel</th><th>quantity</th><th>price</th><th></th></tr>";
 		foreach ($this->products as $art ){
 			$prodId = $art->id;
 			$quantity = $this->productQuantity[$prodId];
 			$price = $this->getTotalPriceforItem($prodId, $quantity);
 			$totalPrice+= $price;
-			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td><td>".$this->getButtonHtml($prodId)."</td></tr>";
+			echo "<tr><td>".$art->name."</td><td>quantity</td><td>price</td><td>".$this->getButtonHtml($prodId)."</td></tr>";
 		}
-		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
+		echo "<tr><td> <b>total</b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
 		echo $this->getCheckOutButton();
 		

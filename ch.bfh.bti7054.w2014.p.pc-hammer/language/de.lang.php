@@ -4,6 +4,7 @@ global $lang;
 #general
 $lang['submit'] = 'Abschicken';
 $lang['back'] = 'Zur&uuml;ck';
+$lang['next'] = 'Weiter';
 $lang['pleaseselect'] = 'Bitte w&auml;hlen';
 
 #navigation
@@ -26,6 +27,9 @@ $lang['password'] = 'Passwort';
 $lang['logout'] = 'Logout';
 $lang['adminmenu'] = 'Adminmenu';
 
+$lang['codedby'] = 'Entwickelt von PCHAMMER';
+$lang['currenttime'] = 'Zeit: ';
+
 #home
 $lang["location"] = 'deine Stadt';
 $lang['weathertitle'] = 'Wetter';
@@ -40,16 +44,37 @@ $lang['tocart'] = 'in den Warenkorb';
 $lang['price'] = 'Preis';
 $lang['type'] = 'Typ';
 
+#cart
+$lang['shoppingcart'] = 'Warenkorb';
+$lang['articel'] = 'Artikel';
+$lang['quantity'] = 'Anzahl';
+$lang['price'] = 'Preis';
+$lang['total'] = 'Total';
 
 #checkout
-$lang['checkout'] = 'Checkout';
+$lang['checkout'] = 'Zur Kasse';
 $lang['product'] = 'Artikel';
 $lang['addProduct'] = 'Artikel hinzufügen';
 $lang['remProduct'] = 'Artikel entfernen';
 $lang['deleteProduct'] = 'Artikel löschen';
 $lang['quantity'] = 'Anzahl';
 $lang['price'] = 'Preis';
-
 $lang['quantAvailable'] = 'St&uuml;ck an Lager';
+
+$lang['paymentshipping'] = 'Zahlen und Verschicken';
+$lang['shippmenttype'] = 'Verschicken mit';
+$lang['mail'] = 'Post';
+$lang['pickup'] = 'Abholen';
+$lang['bill'] = 'Rechnung';
+$lang['paypal'] = 'PayPal';
+$lang['paymentmethod'] = 'Zahlungsart';
+$lang['shippmentbillingadress'] = 'Rechnungsadresse';
+$lang['billingemail'] = 'Rechnungs-EMail';
+$lang['streetaddress'] = 'Strasse';
+$lang['zipcode'] = 'PLZ';
+$lang['city'] = 'Stadt';
+$lang['country'] = 'Land';
+$lang['comment'] = 'Kommentar';
+$lang['confirmorder'] = 'Bestellung best&auml;tigen';
 
 ?>

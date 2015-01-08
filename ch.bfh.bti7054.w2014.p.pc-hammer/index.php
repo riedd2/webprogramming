@@ -208,7 +208,7 @@ function GetNavigationLink($targetPage, $lang){
 	</div>	
 </div>
 <div id="footer">
-Coded by team hammer | Current Time: <span id="time" />
+<?php echo $lang['codedby']?> | <?php echo $lang['currenttime'] ?><span id="time" />
 </div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
