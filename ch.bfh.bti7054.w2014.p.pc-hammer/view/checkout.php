@@ -179,7 +179,7 @@ function isRequiret(ctrlId)
     				<label for="address" class="control-label">	
     					<?php echo $lang['streetaddress']?>
     				</label>
-    				<div class="controls"><input name="formElement[1]" class="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
+    				<div class="controls"><input name="formElement[1]" class="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline"></span>
     				</div>
     			</div>
      

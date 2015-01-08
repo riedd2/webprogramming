@@ -68,6 +68,8 @@ function GetNavigationLink($targetPage, $lang){
 	   background: #337AB7;
 	   color: white;
 	   padding: 10px;
+	   clear: both;
+       position: fixed;
 	}
 </style>
 </head>
