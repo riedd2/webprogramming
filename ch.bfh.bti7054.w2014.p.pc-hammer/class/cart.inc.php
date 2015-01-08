@@ -1,6 +1,7 @@
 <?php
 if(!isset($GLOBALS)) session_start();
 
+//Class for the shopping cart
 class Cart {
 	private $products = array ();
 	private $productQuantity = array();
@@ -14,9 +15,11 @@ class Cart {
 	public function addItem($art, $num) {
 		
 		$index = $art->id;
+		// add the new product to the products array
 		if (! isset ($this->products[$index] )){
 			$this->products [$index] = $art;
 		}
+		//if not present, add product to array
 		if(!isset($this->productQuantity[$index])){
 			$this->productQuantity[$index] = $num;
 		}
@@ -101,7 +104,7 @@ class Cart {
 			$quantity = $this->productQuantity[$prodId];
 			$price = $this->getTotalPriceforItem($prodId, $quantity);
 			$totalPrice+= $price;
-			echo "<tr><td>".$art->name."</td><td>quantity</td><td>price</td><td>".$this->getButtonHtml($prodId)."</td></tr>";
+			echo "<tr><td>".$art->name."</td><td>".$quantity."</td><td>".$price."</td><td>".$this->getButtonHtml($prodId)."</td></tr>";
 		}
 		echo "<tr><td> <b>total</b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
