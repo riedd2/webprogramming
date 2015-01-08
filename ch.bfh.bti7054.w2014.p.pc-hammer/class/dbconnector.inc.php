@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION)) session_start();
 class dbconnector{
 	public $db;
 	public $sql;
@@ -12,11 +13,11 @@ class dbconnector{
 		}
 	}	
 	
-	function setQuery($query){
+	public function setQuery($query){
 		$this->sql = $query;
 	}
 	
-	function queryDB(){
+	public function queryDB(){
 		if(!$this->result = $this->db->query($this->sql)){
 			die('There was an error running the query [' . $this->db->error . ']');
 		}
@@ -24,17 +25,9 @@ class dbconnector{
 		return $this->result;
 	}
 	
-	function showResult(){
-		echo "<h1>res</h1>";
-		while($row = $this->result->fetch_assoc()){
-			
-			echo $row['name'] . '<br />';
-		}
-	}
-	
 	private function makeQuery($orderid, $order){
 		//get user id
-		$userid = 1;//$_SESSION['']
+		$userid = $_SESSION['userid'];
 		$querypart = "(".$orderid.", %d, %d)";
 		$query = "INSERT INTO `pchammer`.`orderposition` (`order_id`, `product_id`, `quantity`) VALUES ";
 		
@@ -50,31 +43,30 @@ class dbconnector{
 		$query .= ";";
 		return $query;
 	}
-	function saveOrder($order){
-		$userid = 1;
+	
+	public function saveOrder($order){
+		$userid = $_SESSION['userid'];
 		$query = sprintf("INSERT INTO `pchammer`.`order` (`user_id`) VALUES (%d)", $userid);
 		$this->setQuery($query);
 		$this->queryDB(); 
 		$query = $this->makeQuery($this->lastid, $order);
 		$this->setQuery($query);
 		$this->queryDB();
-		//echo $this->db->affected_rows;
-		
+
+		//return how many rows are affected to determine if save was successfull
 		return $this->db->affected_rows;
-		//get how many rows affected
-	
 	}
 	
-	function checkUserPassword($username, $password){
-		$query = sprintf("SELECT username, admin FROM user WHERE username = '%s' AND password = '%s'", $username, $password);
+	public function checkUserPassword($username, $password){
+		$query = sprintf("SELECT id_user, username, admin FROM user WHERE username = '%s' AND password = '%s'", $username, $password);
 		$this->setQuery($query);
 		$this->queryDB();
 
 		if(mysqli_num_rows($this->result) == 1){
 			$row = $this->result->fetch_assoc();
+			$_SESSION ["userid"] = $row['id_user'];
 			if($row['admin'] == 1)
 				$_SESSION ["admin"] = true;
-				
 			return true;
 		}else{
 			if(mysqli_num_rows($this->result) == 0)

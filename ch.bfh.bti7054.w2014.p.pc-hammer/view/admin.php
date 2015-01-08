@@ -1,5 +1,4 @@
 <?php
-include "/../class/catalog.inc.php";
 //überprüfen, ob user admin ist. wenn nicht, nach 2 sekunden auf index.php weiterleiten
 if(!isset($_SESSION ["admin"])){
 	echo "sorry no admin u are";
@@ -9,29 +8,33 @@ if(!isset($_SESSION ["admin"])){
 ?>
 
 <form action="index.php" method="GET">
-<?php echo $lang['username']?>: <input type="text" name="username"/><br />
-<?php echo $lang['password']?>: <input type="text" name="password"/><br />
-<?php echo $lang['email']?>: <input type="text" name="email"/><br />
-<?php echo $lang['adminmenu']?>: <select name="admin">
-<option>0</option>
-<option>1</option>
-</select><br />
-<button class ="btn btn-default" ><?php echo $lang['confirm']?></button><br />
-<input type='textbox' hidden name='page' value='_admin'/>
+	<?php echo $lang['username']?>: <input type="text" name="username"/><br />
+	<?php echo $lang['password']?>: <input type="text" name="password"/><br />
+	<?php echo $lang['email']?>: <input type="text" name="email"/><br />
+	<?php echo $lang['adminmenu']?>: <select name="admin">
+		<option>0</option>
+		<option>1</option>
+	</select><br />
+	<button class ="btn btn-default" ><?php echo $lang['confirm']?></button><br />
+	<input type='textbox' hidden name='page' value='_admin'/>
 </form>
 
-
 <?php 
+//check if all input boxes were set
 if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['email']) && isset($_GET['admin'])){
+	//check if all input boxes have something inserted
 	if($_GET['username'] != "" && $_GET['password'] != "" && $_GET['email'] != "" && $_GET['admin'] != ""){
 		$user = $_GET['username'];
 		$email = $_GET['email'];
 		$password = $_GET['password'];
 		$admin = $_GET['admin'];
+		
+		//insert informations to db
 		$db = new dbconnector();
 		$query = "INSERT INTO `pchammer`.`user` (`username`, `email`, `password`, `admin`) VALUES ('%s', '%s', '%s', '%d');";
 		$query = sprintf($query, $user, $email, $password, $admin);
 		$db->setQuery($query);
+		
 		if($db->queryDB()){
 			echo "<h3>".$lang['inserted']."</h3>";
 		}else{
@@ -55,10 +58,9 @@ echo "</select>";
 echo "Produkttyp <br />"; */
 ?>
 
-<!-- 
-
+<!-- funktioniert leider nicht
 Leeres Form, das mit ajax erstellt wird, wenn ein produkttyp ausgewählt wird
--->
+
 <form action="index.php" method="get" id="insertForm">
 
 </form>
@@ -79,5 +81,6 @@ function showForm(){
 	    }  
 }
 </script>
+-->
 	
 

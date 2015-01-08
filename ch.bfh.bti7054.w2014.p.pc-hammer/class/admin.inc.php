@@ -1,6 +1,7 @@
 <?php
 class admin{
 	public $type;
+	
 	//Form erstellen, indem alle Spalten in der Produkt und in der typspezifischen Tabelle ausgelesen werden
 	function showForm(){
 		$db = new dbconnector();

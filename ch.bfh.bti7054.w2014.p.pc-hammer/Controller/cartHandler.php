@@ -24,9 +24,9 @@ if (isset ( $_GET ["prodId"] ) && isset ( $_GET ["num"] )){
 		unset($_SESSION["cart"]);
 	}
 		
-	}
-if(isset ($_SESSION["cart"])){
-echo $_SESSION["cart"]->display();
 }
 
+if(isset ($_SESSION["cart"])){
+	echo $_SESSION["cart"]->display();
+}
 ?>

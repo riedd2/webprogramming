@@ -9,7 +9,6 @@ function saveOrder(product)
 	if (window.XMLHttpRequest){ xmlhttp=new XMLHttpRequest(); }else{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
 	xmlhttp.open("GET","Controller/orderHandler.php?ordersToSave="+product, true);
 	xmlhttp.send();
-
 	   xmlhttp.onreadystatechange=function() {
 	        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 	          $("#" + xmlhttp.responseText).show();  
@@ -22,8 +21,7 @@ function saveOrder(product)
 		          window.setTimeout(function(){
 		              window.location.href = url;
 		          }, 3000);
-	          } 
-	          
+	          }  
 	        }
 	       }
 	    $("#summary").hide(); 
@@ -32,7 +30,7 @@ function saveOrder(product)
 function confirmOrder(product){
 	if(confirm("Are you sure you want to confirm? You are going to enter a binding contract"))
 	{
-		saveOrder(product)
+		saveOrder(product);
 	}
 
 }
@@ -74,10 +72,6 @@ function destroySession(sessionName)
 </div>
 <?php 
 $jsonstr = "'".json_encode($_SESSION["cart"]->getProductQuantity())."'";
-
-
-
-
 echo "<button name='confirm' onclick="."confirmOrder($jsonstr)".">".$lang['confirmorder']."</button>"
 
 ?>
