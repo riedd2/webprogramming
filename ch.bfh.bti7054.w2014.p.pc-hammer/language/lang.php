@@ -19,8 +19,7 @@ function set_lang_id( $lang_id )
 {
     if ( strlen( $lang_id ) == 2 && is_language_supported( $lang_id ) )
 	{
-	    $language_file = includeTrailingCharacter( realpath(dirname(__FILE__)), "/" ) . $lang_id.".lang.php";
- 
+	    $language_file = includeTrailingCharacter( realpath(dirname(__FILE__)), "\\" ) . $lang_id.".lang.php";
 	    if ( is_file( $language_file ) && file_exists( $language_file ) )
         {		
             $expiration_date = time()+3600*24*365;

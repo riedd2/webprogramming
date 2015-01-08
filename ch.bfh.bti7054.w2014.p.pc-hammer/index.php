@@ -1,7 +1,5 @@
 <?php 
 include "language/lang.php";
-include "language/de.lang.php";
-include "language/en.lang.php";
 include_once "class/cart.inc.php";
 session_start ();
 include "Controller/LoginController.php";
@@ -30,13 +28,16 @@ $default = 'home.php';
 $base = 'view\\';
 
 # list of all site pages + the id they will be called by
-$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', 'admin' => 'admin.php', '_checkout' => 'checkout.php', '_confirmation' => 'confirmation.php');
+$pages = array('home' => 'home.php','catalog' => 'catalog.php','contact' => 'contact.php', '_admin' => 'admin.php', '_checkout' => 'checkout.php', '_confirmation' => 'confirmation.php');
 
-function GetNavigationLink($targetPage){
+function GetNavigationLink($targetPage, $lang){
 	if(Helper::startsWith($targetPage, "_")){
-	return "<a href='?page=".$targetPage."' style='display:none'>".$targetPage."</a>";
+		if($targetPage == "_admin" && isset($_SESSION['admin'])){
+			return "<a href='?page=".$targetPage."'>".$lang[$targetPage]."</a>";
+		}
+		return "<a href='?page=".$targetPage."' style='display:none'>".$targetPage."</a>";
 	}
-	return "<a href='?page=".$targetPage."'>".$targetPage."</a>";
+	return "<a href='?page=".$targetPage."'>".$lang[$targetPage]."</a>";
 }
 
 
@@ -150,12 +151,12 @@ function GetNavigationLink($targetPage){
 				<?php 
 				foreach($pages as $key => $value){
 					if(!isset($_GET['page']) && $key == 'home'){
-						echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
+						echo "<li role='presentation' class='active'>".GetNavigationLink($key, $lang)."</li>";
 					}
 					else if(isset($_GET['page']) && $_GET['page'] == $key){
-						echo "<li role='presentation' class='active'>".GetNavigationLink($key)."</li>";
+						echo "<li role='presentation' class='active'>".GetNavigationLink($key, $lang)."</li>";
 					}else{
-						echo "<li role='presentation'>".GetNavigationLink($key)."</li>";
+						echo "<li role='presentation'>".GetNavigationLink($key, $lang)."</li>";
 					
 					}
 				}

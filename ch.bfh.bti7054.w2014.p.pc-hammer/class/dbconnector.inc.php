@@ -39,16 +39,13 @@ class dbconnector{
 		$query = "INSERT INTO `pchammer`.`orderposition` (`order_id`, `product_id`, `quantity`) VALUES ";
 		
 		$numItems = count($order);
-		$i = 0;
 		
 		foreach ($order as $key => $value){
-			if(++$i === $numItems) {
-				$query .= sprintf($querypart, $key, $value);	
-			}else{
-				$query .= sprintf($querypart, $key, $value).",";
-			}
+		$query .= sprintf($querypart, $key, $value).",";	
 		}
-		
+		//remove last comma
+		$query = rtrim($query,',');
+
 		//necessary?
 		$query .= ";";
 		return $query;
@@ -58,7 +55,6 @@ class dbconnector{
 		$query = sprintf("INSERT INTO `pchammer`.`order` (`user_id`) VALUES (%d)", $userid);
 		$this->setQuery($query);
 		$this->queryDB(); 
-		echo $this->db->affected_rows;
 		$query = $this->makeQuery($this->lastid, $order);
 		$this->setQuery($query);
 		$this->queryDB();
