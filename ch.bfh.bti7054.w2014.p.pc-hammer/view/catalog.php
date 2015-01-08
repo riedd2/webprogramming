@@ -30,7 +30,7 @@ echo "<div class='row'>";
 	echo "<h3>".$lang['filter']."</h3>";
 	echo "<form action='index.php' method='get' name='filterform'>";
 	for ($i = 1; $i <= sizeof($categories); $i++){
-		echo $categories[$i];
+		echo $lang[$categories[$i]];
 		if($filter == $categories[$i]){
 			echo "<input type='radio' name='filter' value='".$categories[$i]."'  checked onChange='this.form.submit()'/></br>";
 		}else{
@@ -90,7 +90,7 @@ function showProduct($p, $langarray, $imgpath, $smarty){
 	$smarty->assign('price', $p["price"]);
 	$smarty->assign('imgpath', $imgpath);
 	$smarty->assign('langtype', $lang['type']);
-	$smarty->assign('type', $p['type']);
+	$smarty->assign('type', $lang[$p['type']]);
 	$smarty->assign('prodid', $prodId);
 	$smarty->assign('jsfunction', $jsFunction);
 	$smarty->assign('langtocart', $lang['tocart']);

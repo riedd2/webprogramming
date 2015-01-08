@@ -6,6 +6,18 @@ $lang['submit'] = 'Abschicken';
 $lang['back'] = 'Zur&uuml;ck';
 $lang['pleaseselect'] = 'Bitte w&auml;hlen';
 
+#navigation
+$lang['home'] = 'Startseite';
+$lang['catalog'] = 'Katalog';
+$lang['contact'] = 'Kontakt';
+$lang['_admin'] = 'Adminmen&uuml;';
+
+#categories
+$lang['disc'] = 'Festplatte';
+$lang['cpu'] = 'Prozessor';
+$lang['graphicscard'] = 'Grafikkarte';
+$lang['mainboard'] = 'Mainboard';
+
 #index
 $lang['german'] = 'Deutsch';
 $lang['english'] = 'Englisch';
@@ -17,7 +29,7 @@ $lang['adminmenu'] = 'Adminmenu';
 #home
 $lang["location"] = 'deine Stadt';
 $lang['weathertitle'] = 'Wetter';
-$lang['weatherreport'] = 'In %s ist es %s und %s bei einer Luftfeuchtigkeit von %s';
+$lang['weatherreport'] = 'In %s ist es %s und %s warm/kalt bei einer Luftfeuchtigkeit von %s';
 $lang['selectCity'] = 'W&auml;hle deine Stadt';
 
 #catalog
@@ -38,6 +50,6 @@ $lang['deleteProduct'] = 'Artikel löschen';
 $lang['quantity'] = 'Anzahl';
 $lang['price'] = 'Preis';
 
-$lang['quantAvailable'] = 'Stück an Lager';
+$lang['quantAvailable'] = 'St&uuml;ck an Lager';
 
 ?>

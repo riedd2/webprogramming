@@ -6,6 +6,18 @@ $lang["submit"] = 'submit';
 $lang['back'] = 'back';
 $lang['pleaseselect'] = 'please select';
 
+#navigation
+$lang['home'] = 'home';
+$lang['catalog'] = 'catalog';
+$lang['contact'] = 'contact';
+$lang['_admin'] = 'adminmenu';
+
+#categories
+$lang['disc'] = 'disc';
+$lang['cpu'] = 'cpu';
+$lang['graphicscard'] = 'graphicscard';
+$lang['mainboard'] = 'mainboard';
+
 #index
 $lang['german'] = 'German';
 $lang['english'] = 'English';
