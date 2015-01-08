@@ -2,6 +2,22 @@
 <head>
 <script type="text/javascript">
 
+function saveOrder(product, num)
+{
+	//replace back 
+	product = product.replace('|', ' ');
+	if (window.XMLHttpRequest){ xmlhttp=new XMLHttpRequest(); }else{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
+	xmlhttp.open("GET","Controller/cartHandler.php?art="+product+"&num="+num, true);
+	xmlhttp.send();
+
+	   xmlhttp.onreadystatechange=function() {
+	        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+	            var cords = document.getElementById("cart");
+	            cords.innerHTML=xmlhttp.responseText;
+	        }
+	    } 
+}
+
 function confirmOrder(){
 	if(confirm("Are you sure you want to confirm? You are going to enter a binding contract"))
 	{
