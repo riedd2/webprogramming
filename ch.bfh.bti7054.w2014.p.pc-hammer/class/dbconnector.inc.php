@@ -31,8 +31,32 @@ class dbconnector{
 		}
 	}
 	
+	function makeQuery($order){
+		//get user id
+		$userid = 1;//$_SESSION['']
+		$querypart = "('%d', '%d', '%d')";
+		$query = "INSERT INTO `pchammer`.`order` (`user_id`, `product_id`, `quantity`) VALUES ";
+		foreach ($order as $key => $value){
+			$query .= sprintf($querypart, $key, $value);
+		}
+		
+		//necessary?
+		$query .= ";";
+		echo $query;
+	}
+	function saveOrder($order){
+		$query = $this->makeQuery($order);
+		$this->setQuery($query);
+		$this->queryDB();
+		
+		return $this->db->affected_rows;
+		//get how many rows affected
+	
+	}
+	
 	function checkUserPassword($username, $password){
-		$this->setQuery("SELECT username, admin FROM user WHERE username = '".$username."' AND password = '".$password."'");
+		$query = sprintf("SELECT username, admin FROM user WHERE username = '%s' AND password = '%s'", $username, $password);
+		$this->setQuery($query);
 		$this->queryDB();
 
 		if(mysqli_num_rows($this->result) == 1){
