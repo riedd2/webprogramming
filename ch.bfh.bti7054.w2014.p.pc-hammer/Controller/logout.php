@@ -10,7 +10,10 @@ function redirect($url, $statusCode = 303)
    session_unset(); // ... delete all session variables,
    session_destroy(); // ... and end it
    
-   
-   redirect("/index.php");
+   $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+   $i = strpos($url,"Controller");
+   $url = substr($url,0,$i);
+   $url .="index.php";
+   redirect($url);
 
 ?>
