@@ -1,5 +1,8 @@
 <?php
 include "/../class/dbconnector.inc.php";
+
+//Handels the orders
+
 if (isset ( $_GET ["ordersToSave"] )){
 	$jsonString = $_GET ["ordersToSave"];
 	$orders = json_decode($jsonString);	

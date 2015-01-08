@@ -78,7 +78,7 @@ class dbconnector{
 			return true;
 		}else{
 			if(mysqli_num_rows($this->result) == 0)
-				echo "no user with provided credentials found";
+				
 			return false;
 		}
 	}

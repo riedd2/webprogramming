@@ -78,6 +78,7 @@ class Cart {
 	
 	}
 	
+	//Displays the ordersummary for checkout
 	public function displayOrderSummary()
 	{
 		$totalPrice = 0;
@@ -95,6 +96,7 @@ class Cart {
 		
 	}
 	
+	//Displays the cart
 	public function display() {
 		$totalPrice = 0;
 		echo "<table class='table'>";
