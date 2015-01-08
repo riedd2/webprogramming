@@ -12,11 +12,6 @@ class dbconnector{
 	}	
 	
 	function setQuery($query){
-// 		$join = "SELECT *
-// 			FROM graphicscard as g left join product as p
-// 			on g.id_graphicscard = p.id_product
-// 			order by id_product";
-		
 		$this->sql = $query;
 	}
 	
