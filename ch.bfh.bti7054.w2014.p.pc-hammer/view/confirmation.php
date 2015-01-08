@@ -57,7 +57,7 @@ function destroySession(sessionName)
 	<div class="shippingAddress">
 		<label  class="control-label"> <?php echo $lang['billingemail']?>: </label> <?php echo $_POST['formElement'][0];?> <br>
 		<label	class="control-label"> <?php echo $lang['streetaddress']?>: </label> <?php echo $_POST['formElement'][1];?> <br>
-		<label class="control-label"> <?php echo $lang['ZIP']?>: </label>  <?php echo $_POST['formElement'][2];?> <br>
+		<label class="control-label"> <?php echo $lang['zipcode']?>: </label>  <?php echo $_POST['formElement'][2];?> <br>
 		<label class="control-label"> <?php echo $lang['city']?>: </label>  <?php echo $_POST['formElement'][3];?> <br>
 		<label class="control-label"> <?php echo $lang['country']?>: </label>  <?php echo $_POST['formElement'][4];?> <br>
 		<label class="control-label"> <?php echo $lang['comment']?>: </label>  <?php echo $_POST['formElement'][5];?> <br>
