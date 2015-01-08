@@ -66,23 +66,45 @@ function checkIfSpecialCtrlOk(id){
 }
 }
 
+function validate()
+{
+	if(areMethodesSelected())
+	{
+		if(document.getElementById("mail").checked)
+		{
+			return validateForm();
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+function areMethodesSelected()
+{
+	if(!areRadioButtonsChecked("delivery")){
+		alert("Please select Shippment Methode");
+		return false;
+	}
+	
+	if(!areRadioButtonsChecked("payment")){
+		alert("Please select Payment Methode");
+		return false;
+	}
+
+	return true;
+}
+
 function validateForm(){
 
 	
 	var success = true;
 	//Check billing and shipping
-	if(!areRadioButtonsChecked("delivery")){
-		alert("Please select Shippment Methode");
-		success = false;
-	}
-	
-	if(!areRadioButtonsChecked("payment")){
-		alert("Please select Payment Methode");
-		sucess = false;
-	}
-	
+
 	//Get all components from form and check if the requiret ones are filled
-	var comps = document.getElementsByName("formElement");
+	var comps = document.querySelectorAll('.formElement');
+	//comps.push(document.querySelectorAll('option:checked'));
 	for(i = 0; i < comps.length; i++)
 	{
 		if(isRequiret(comps[i].id)){
@@ -122,8 +144,8 @@ function isRequiret(ctrlId)
 <br>
 <h4> Select shippment type </h4>
 <div name="shippmentSelction">
-<input type="radio" name="delivery" value="mail" onclick="hideAddressForm('mail')"> Mail <br>
-<input type="radio" name="delivery" value="pickup" onclick="hideAddressForm('pickup')"> Pick-up at Store <br>
+<input type="radio" name="delivery" id="mail" value="mail" onclick="hideAddressForm('mail')"> Mail <br>
+<input type="radio" name="delivery" id="mail" value="pickup" onclick="hideAddressForm('pickup')"> Pick-up at Store <br>
 </div>
 
 <h4> Select payment methode </h4>
@@ -137,7 +159,7 @@ function isRequiret(ctrlId)
 
 	<div class="row">
         <div class="span8">
-    		<form id="billingform" action="index.php?page=_confirmation" method="POST" class="form-horizontal" onsubmit="return validateForm()">
+    		<form id="billingform" action="index.php?page=_confirmation" method="POST" class="form-horizontal" onsubmit="return validate()">
     		    			
     			<input type="hidden" id="selectedShippment" value="" name="selectedShippment">
     			<input  type="hidden" id="selectedPayment" value="" name="selectedPayment">
@@ -149,7 +171,7 @@ function isRequiret(ctrlId)
     					Billing E-Mail 
     				</label>
     				<div class="controls">
-    					<input name="formElement[0]" type="text" value="" id="req_email">
+    					<input name="formElement[0]" type="text" value="" class="formElement" id="req_email">
     				</div>
     			</div>
      
@@ -157,7 +179,7 @@ function isRequiret(ctrlId)
     				<label for="address" class="control-label">	
     					Street Address
     				</label>
-    				<div class="controls"><input name="formElement[1]" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
+    				<div class="controls"><input name="formElement[1]" class="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
     				</div>
     			</div>
      
@@ -165,7 +187,7 @@ function isRequiret(ctrlId)
     				<label for="zip" class="control-label">	
     					Zip Code
     				</label>
-    				<div class="controls"><input name="formElement[2]" type="text" value="" id="req_zip">
+    				<div class="controls"><input name="formElement[2]" class="formElement" type="text" value="" id="req_zip">
     				</div>
     			</div>
      
@@ -173,7 +195,7 @@ function isRequiret(ctrlId)
     				<label for="city" class="control-label">	
     					City
     				</label>
-    				<div class="controls"><input name="formElement[3]" type="text" value="" id="req_city">
+    				<div class="controls"><input name="formElement[3]" class="formElement" type="text" value="" id="req_city">
     				</div>
     			</div>
     			
@@ -182,7 +204,7 @@ function isRequiret(ctrlId)
     					Country
     				</label>
     				<div class="controls">
-    					<select name="formElement[4]" id="req_country">
+    					<select name="formElement[4]" class="formElement" id="req_country">
     						<option value=""></option>
     						<option value="AU">Australia</option>
     						<option value="DE">Germany</option>
@@ -193,7 +215,7 @@ function isRequiret(ctrlId)
     			<label for="comment" class="control-label">	
     					Comment
     				</label>
-    			<textarea class="form-control" rows="3" name="formElement[5]" id="comment" style="width: 300px"></textarea>
+    			<textarea class="form-control" rows="3" name="formElement[5]" class="formElement" id="comment" style="width: 300px"></textarea>
     			
 
      		</div>	

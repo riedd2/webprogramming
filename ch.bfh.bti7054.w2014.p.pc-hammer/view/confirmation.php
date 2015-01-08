@@ -2,13 +2,31 @@
 <head>
 <script type="text/javascript">
 
-function confirmOrder(){
+function saveOrder(product)
+{
+	//replace back 
+	product = product.replace('|', ' ');
+	if (window.XMLHttpRequest){ xmlhttp=new XMLHttpRequest(); }else{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
+	xmlhttp.open("GET","Controller/orderHandler.php?ordersToSave="+product, true);
+	xmlhttp.send();
+
+	   xmlhttp.onreadystatechange=function() {
+	        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+	          $("#" + xmlhttp.responseText).show();   
+	        }
+	        else{
+		     $("#error").show();   
+	        }
+	    }
+	    $("#summary").hide(); 
+}
+
+function confirmOrder(product){
 	if(confirm("Are you sure you want to confirm? You are going to enter a binding contract"))
 	{
-		
+		saveOrder(product)
 	}
-	else{
-	}
+
 }
 
 
@@ -39,7 +57,22 @@ function confirmOrder(){
 		$_SESSION["cart"]->displayOrderSummary(); 
 	?>
 </div>
+<?php 
+$jsonstr = "'".json_encode($_SESSION["cart"]->getProductQuantity())."'";
+echo $jsonstr;
 
-<button name="confirm" onclick="confirmOrder()">Confirm Order</button>
+
+
+echo "<button name='confirm' onclick="."confirmOrder($jsonstr)".">Confirm Order</button>"
+
+?>
+</div>
+
+<div id="success" class="alert alert-success" style="display: none">
+  Order has been saved
+</div>
+
+<div id="error" class="alert alert-block" style="display: none">
+  Something went wrong with the order
 </div>
 </html>
