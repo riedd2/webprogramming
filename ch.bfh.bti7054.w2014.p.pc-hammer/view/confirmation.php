@@ -17,7 +17,7 @@ function saveOrder(product)
 	          {
 		          destroySession("cart");
 		          window.setTimeout(function(){
-		              window.location.href = "/index.php";
+		              window.location.href = "../index.php";
 		          }, 3000);
 	          } 
 	          
@@ -41,7 +41,6 @@ function destroySession(sessionName)
 	xmlhttp.send();
 	
 }
-
 
 </script>
 </head>
