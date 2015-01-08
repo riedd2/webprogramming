@@ -1,8 +1,6 @@
 <?php
 echo "<h3>".$lang['weathertitle']."</h3>";
 
-
-
 if(isset($_GET['location'])){
 	$client = new SoapClient("http://www.webservicex.com/globalweather.asmx?wsdl", array("trace" => 1, "exception" => 0, "features"=>SOAP_SINGLE_ELEMENT_ARRAYS));
 	

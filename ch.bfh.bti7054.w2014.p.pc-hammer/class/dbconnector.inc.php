@@ -43,9 +43,9 @@ class dbconnector{
 		
 		foreach ($order as $key => $value){
 			if(++$i === $numItems) {
-				$query .= sprintf($querypart, $userid, $key, $value);	
+				$query .= sprintf($querypart, $key, $value);	
 			}else{
-				$query .= sprintf($querypart, $userid, $key, $value).",";
+				$query .= sprintf($querypart, $key, $value).",";
 			}
 		}
 		
@@ -62,7 +62,7 @@ class dbconnector{
 		$query = $this->makeQuery($this->lastid, $order);
 		$this->setQuery($query);
 		$this->queryDB();
-		echo $this->db->affected_rows;
+		//echo $this->db->affected_rows;
 		
 		return $this->db->affected_rows;
 		//get how many rows affected
@@ -91,6 +91,3 @@ class dbconnector{
 		$this->db->close();
 	}
 }
-	
-	
-	

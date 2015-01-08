@@ -11,9 +11,6 @@ function __autoload($class_name) {
 	include 'class\\'. $class_name . '.inc.php';
 }
 
-
-
-
 #### settings ####
 # smarty configuration
 require('/vendor/smarty/smarty/libs/Smarty.class.php');
@@ -93,7 +90,7 @@ function GetNavigationLink($targetPage){
 			
 			?>
 			
-<div style="margin-left:10px; height: 100%; margin-bottom: 100px;">
+<div style="margin-left:10px; margin-top:10px; height: 100%; margin-bottom: 100px;">
 	<div class="row">
 		<div class="col-md-3">
 			<a href="index.php"><img src="img/logo.png" height="130px" /></a>
@@ -131,7 +128,7 @@ function GetNavigationLink($targetPage){
 		</div>
 		<div class="col-md-3">
 		<?php
-		
+
 			if (isset ( $_SESSION ["user"] ) && isset($_SESSION ["admin"])) {
 				echo "Welcome Admin ".$_SESSION ["user"]."<a href='Controller/logout.php'> ".$lang['logout']."</a>";
 				echo "</br> <a href='?page=admin'>".$lang['adminmenu']."</a>";
