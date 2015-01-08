@@ -6,7 +6,7 @@
 <script type="text/javascript">
 
 function setHiddenValue(id,val){
-	document.getElementById(id).text = val;
+	document.getElementById(id).value = val;
 }
 
 function hideAddressForm(value){
@@ -119,7 +119,6 @@ function isRequiret(ctrlId)
 <body>
 <?php if (isset($_SESSION ["cart"])):?>
 <h2> Payment & Shippment </h2>
-<!--   <?php $_SESSION["cart"]->displayOrderSummary(); ?>-->
 <br>
 <h4> Select shippment type </h4>
 <div name="shippmentSelction">
@@ -138,7 +137,11 @@ function isRequiret(ctrlId)
 
 	<div class="row">
         <div class="span8">
-    		<form id="billingform" action="view/confirmationPage.php" method="POST" class="form-horizontal" onsubmit="return validateForm()">
+    		<form id="billingform" action="index.php?page=_confirmation" method="POST" class="form-horizontal" onsubmit="return validateForm()">
+    		    			
+    			<input type="hidden" id="selectedShippment" value="" name="selectedShippment">
+    			<input  type="hidden" id="selectedPayment" value="" name="selectedPayment">
+    			
     		<div class="container" id="addressForm" style="display: none">
     		<h4>Shippment / Billing address:</h4>
     			<div class="control-group">
@@ -146,7 +149,7 @@ function isRequiret(ctrlId)
     					Billing E-Mail 
     				</label>
     				<div class="controls">
-    					<input name="formElement" type="text" value="" id="req_email">
+    					<input name="formElement[0]" type="text" value="" id="req_email">
     				</div>
     			</div>
      
@@ -154,7 +157,7 @@ function isRequiret(ctrlId)
     				<label for="address" class="control-label">	
     					Street Address
     				</label>
-    				<div class="controls"><input name="formElement" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
+    				<div class="controls"><input name="formElement[1]" placeholder="Musterstreet 12" type="text" value="" id="req_address"><span class="help-inline">  Street Name and number</span>
     				</div>
     			</div>
      
@@ -162,7 +165,7 @@ function isRequiret(ctrlId)
     				<label for="zip" class="control-label">	
     					Zip Code
     				</label>
-    				<div class="controls"><input name="formElement" type="text" value="" id="req_zip">
+    				<div class="controls"><input name="formElement[2]" type="text" value="" id="req_zip">
     				</div>
     			</div>
      
@@ -170,7 +173,7 @@ function isRequiret(ctrlId)
     				<label for="city" class="control-label">	
     					City
     				</label>
-    				<div class="controls"><input name="formElement" type="text" value="" id="req_city">
+    				<div class="controls"><input name="formElement[3]" type="text" value="" id="req_city">
     				</div>
     			</div>
     			
@@ -179,7 +182,7 @@ function isRequiret(ctrlId)
     					Country
     				</label>
     				<div class="controls">
-    					<select name="formElement" id="req_country">
+    					<select name="formElement[4]" id="req_country">
     						<option value=""></option>
     						<option value="AU">Australia</option>
     						<option value="DE">Germany</option>
@@ -190,12 +193,9 @@ function isRequiret(ctrlId)
     			<label for="comment" class="control-label">	
     					Comment
     				</label>
-    			<textarea class="form-control" rows="3" name="formElement" id="comment" style="width: 300px"></textarea>
+    			<textarea class="form-control" rows="3" name="formElement[5]" id="comment" style="width: 300px"></textarea>
     			
-    			<div id="hiddenFields" style="display: none">
-    			<input type="hidden" id="selectedShippment" value="">
-    			<input  type="hidden" id="selectedPayment" value="">
-    			</div>
+
      		</div>	
     			<div class="form-actions">
     				<button type="submit" class="btn btn-large btn-primary" >Next</button>

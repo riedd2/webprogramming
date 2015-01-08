@@ -86,7 +86,7 @@ class Cart {
 		}
 		echo "<tr><td> <b> Total </b></td><td><td><b>".$totalPrice."</b></td></tr>";
 		echo "</table>";
-		echo "<button name='confirmOrder'>".$lang['checkout']."</button>";
+		
 	}
 	
 	public function display() {
