@@ -12,12 +12,17 @@ function saveOrder(product)
 
 	   xmlhttp.onreadystatechange=function() {
 	        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	          $("#" + xmlhttp.responseText).show();   
+	          $("#" + xmlhttp.responseText).show();  
+	          if(xmlhttp.responseText == "success")
+	          {
+		          destroySession("cart");
+		          window.setTimeout(function(){
+		              window.location.href = "/index.php";
+		          }, 3000);
+	          } 
+	          
 	        }
-	        else{
-		     $("#error").show();   
-	        }
-	    }
+	       }
 	    $("#summary").hide(); 
 }
 
@@ -27,6 +32,14 @@ function confirmOrder(product){
 		saveOrder(product)
 	}
 
+}
+
+function destroySession(sessionName)
+{
+	if (window.XMLHttpRequest){ xmlhttp=new XMLHttpRequest(); }else{ xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); }
+	xmlhttp.open("GET","Controller/sessionHandler.php?sessionToDestroy="+sessionName, true);
+	xmlhttp.send();
+	
 }
 
 
@@ -59,7 +72,7 @@ function confirmOrder(product){
 </div>
 <?php 
 $jsonstr = "'".json_encode($_SESSION["cart"]->getProductQuantity())."'";
-echo $jsonstr;
+
 
 
 
