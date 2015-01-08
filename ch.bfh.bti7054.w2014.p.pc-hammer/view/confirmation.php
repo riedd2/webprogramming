@@ -15,9 +15,12 @@ function saveOrder(product)
 	          $("#" + xmlhttp.responseText).show();  
 	          if(xmlhttp.responseText == "success")
 	          {
+		          var url = document.URL;
+		          var i = url.indexOf("?");
+		          url = url.substring(0,i);
 		          destroySession("cart");
 		          window.setTimeout(function(){
-		              window.location.href = "/index.php";
+		              window.location.href = url;
 		          }, 3000);
 	          } 
 	          
@@ -41,7 +44,6 @@ function destroySession(sessionName)
 	xmlhttp.send();
 	
 }
-
 
 </script>
 </head>
