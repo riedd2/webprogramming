@@ -66,6 +66,7 @@ function checkIfSpecialCtrlOk(id){
 }
 }
 
+//Start the validation
 function validate()
 {
 	if(areMethodesSelected())
@@ -81,6 +82,7 @@ function validate()
 	return false;
 }
 
+//Check if Payment and Shippment are selected
 function areMethodesSelected()
 {
 	if(!areRadioButtonsChecked("delivery")){
@@ -96,17 +98,16 @@ function areMethodesSelected()
 	return true;
 }
 
+//validate the form
 function validateForm(){
-
 	
 	var success = true;
-	//Check billing and shipping
-
 	//Get all components from form and check if the requiret ones are filled
 	var comps = document.querySelectorAll('.formElement');
-	//comps.push(document.querySelectorAll('option:checked'));
+
 	for(i = 0; i < comps.length; i++)
 	{
+		//check if the component is requiret
 		if(isRequiret(comps[i].id)){
 			if(!comps[i].value)
 			{

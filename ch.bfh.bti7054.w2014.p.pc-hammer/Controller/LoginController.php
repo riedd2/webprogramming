@@ -13,6 +13,7 @@ if (isset( $_POST ["user"] ) && isset( $_POST ["pw"] )) {
 	$res = $db->checkUserPassword($username, $password);
 	
 	if ($res) {
+		// set user in session if password is correct
 		$_SESSION ["user"] = $_POST ["user"];
 		$user = $_POST ["user"];
 		return $user;
