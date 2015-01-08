@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2015 at 01:02 PM
+-- Generation Time: Dec 28, 2014 at 01:51 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -23,6 +23,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `basket`
+--
+
+CREATE TABLE IF NOT EXISTS `basket` (
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `totalPrice` int(11) NOT NULL,
+  `paid` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `basket`
+--
+
+INSERT INTO `basket` (`user_id`, `product_id`, `quantity`, `totalPrice`, `paid`) VALUES
+(1, 3, 2, 100, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -36,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`id_category`, `categoryname`) VALUES
-(1, 'disc'),
+(1, 'hdd'),
 (2, 'graphicscard'),
 (3, 'mainboard'),
 (4, 'cpu');
@@ -126,52 +147,6 @@ INSERT INTO `mainboard` (`id_mainboard`, `dimension`, `USB2quant`, `USB3quant`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
---
-
-CREATE TABLE IF NOT EXISTS `order` (
-`id_order` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `paid` tinyint(1) DEFAULT NULL,
-  `delivered` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
-
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`id_order`, `user_id`, `paid`, `delivered`) VALUES
-(31, 1, NULL, NULL),
-(32, 1, NULL, NULL),
-(33, 1, NULL, NULL),
-(34, 1, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orderposition`
---
-
-CREATE TABLE IF NOT EXISTS `orderposition` (
-`id_orderposition` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
-
---
--- Dumping data for table `orderposition`
---
-
-INSERT INTO `orderposition` (`id_orderposition`, `order_id`, `product_id`, `quantity`) VALUES
-(48, 31, 1, 1),
-(49, 32, 1, 1),
-(50, 33, 1, 1),
-(51, 34, 1, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `product`
 --
 
@@ -180,19 +155,18 @@ CREATE TABLE IF NOT EXISTS `product` (
   `category_id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
   `price` decimal(19,4) NOT NULL,
-  `quantAvailable` int(11) NOT NULL,
-  `image` varchar(200) NOT NULL
+  `quantAvailable` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id_product`, `category_id`, `name`, `price`, `quantAvailable`, `image`) VALUES
-(1, 3, 'mainboard1', '99.0000', 10, 'mainboard.png'),
-(2, 2, 'nvidea bla3000', '300.0000', 4, 'graphicscard.png'),
-(3, 4, 'i5 2.2', '99.0000', 2, 'cpu.png'),
-(4, 1, 'superstar300', '250.0000', 24, 'harddisc.png');
+INSERT INTO `product` (`id_product`, `category_id`, `name`, `price`, `quantAvailable`) VALUES
+(1, 3, 'mainboard1', '99.0000', 10),
+(2, 2, 'nvidea bla3000', '300.0000', 4),
+(3, 4, 'i5 2.2', '99.0000', 2),
+(4, 1, 'superstar300', '250.0000', 24);
 
 -- --------------------------------------------------------
 
@@ -219,6 +193,12 @@ INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `admin`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `basket`
+--
+ALTER TABLE `basket`
+ ADD PRIMARY KEY (`user_id`), ADD KEY `basket_ibfk_1` (`product_id`);
 
 --
 -- Indexes for table `category`
@@ -249,18 +229,6 @@ ALTER TABLE `graphicscard`
 --
 ALTER TABLE `mainboard`
  ADD PRIMARY KEY (`id_mainboard`);
-
---
--- Indexes for table `order`
---
-ALTER TABLE `order`
- ADD PRIMARY KEY (`id_order`), ADD KEY `order_ibfk_2` (`user_id`);
-
---
--- Indexes for table `orderposition`
---
-ALTER TABLE `orderposition`
- ADD PRIMARY KEY (`id_orderposition`), ADD KEY `order_id_fk` (`order_id`), ADD KEY `product_fk1` (`product_id`);
 
 --
 -- Indexes for table `product`
@@ -304,16 +272,6 @@ MODIFY `id_graphicscard` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `mainboard`
 MODIFY `id_mainboard` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `order`
---
-ALTER TABLE `order`
-MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
---
--- AUTO_INCREMENT for table `orderposition`
---
-ALTER TABLE `orderposition`
-MODIFY `id_orderposition` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
@@ -326,6 +284,13 @@ MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `basket`
+--
+ALTER TABLE `basket`
+ADD CONSTRAINT `basket_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id_product`) ON DELETE CASCADE,
+ADD CONSTRAINT `basket_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cpu`
@@ -350,19 +315,6 @@ ADD CONSTRAINT `graphicscard_ibfk_1` FOREIGN KEY (`id_graphicscard`) REFERENCES 
 --
 ALTER TABLE `mainboard`
 ADD CONSTRAINT `mainboard_ibfk_1` FOREIGN KEY (`id_mainboard`) REFERENCES `product` (`id_product`) ON DELETE CASCADE;
-
---
--- Constraints for table `order`
---
-ALTER TABLE `order`
-ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
-
---
--- Constraints for table `orderposition`
---
-ALTER TABLE `orderposition`
-ADD CONSTRAINT `order_fk1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id_order`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `orderposition_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product`

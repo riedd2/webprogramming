@@ -3,6 +3,7 @@ class dbconnector{
 	public $db;
 	public $sql;
 	public $result;
+	public $lastid;
 	
 	function __construct(){
 		$this->db = new mysqli('localhost', 'pchammer', 'Hallo123', 'pchammer');
@@ -19,7 +20,7 @@ class dbconnector{
 		if(!$this->result = $this->db->query($this->sql)){
 			die('There was an error running the query [' . $this->db->error . ']');
 		}
-		
+		$this->lastid = $this->db->insert_id;
 		return $this->result;
 	}
 	
@@ -31,23 +32,37 @@ class dbconnector{
 		}
 	}
 	
-	function makeQuery($order){
+	private function makeQuery($orderid, $order){
 		//get user id
 		$userid = 1;//$_SESSION['']
-		$querypart = "('%d', '%d', '%d')";
-		$query = "INSERT INTO `pchammer`.`order` (`user_id`, `product_id`, `quantity`) VALUES ";
+		$querypart = "(".$orderid.", %d, %d)";
+		$query = "INSERT INTO `pchammer`.`orderposition` (`order_id`, `product_id`, `quantity`) VALUES ";
+		
+		$numItems = count($order);
+		$i = 0;
+		
 		foreach ($order as $key => $value){
-			$query .= sprintf($querypart, $key, $value);
+			if(++$i === $numItems) {
+				$query .= sprintf($querypart, $userid, $key, $value);	
+			}else{
+				$query .= sprintf($querypart, $userid, $key, $value).",";
+			}
 		}
 		
 		//necessary?
 		$query .= ";";
-		echo $query;
+		return $query;
 	}
 	function saveOrder($order){
-		$query = $this->makeQuery($order);
+		$userid = 1;
+		$query = sprintf("INSERT INTO `pchammer`.`order` (`user_id`) VALUES (%d)", $userid);
+		$this->setQuery($query);
+		$this->queryDB(); 
+		echo $this->db->affected_rows;
+		$query = $this->makeQuery($this->lastid, $order);
 		$this->setQuery($query);
 		$this->queryDB();
+		echo $this->db->affected_rows;
 		
 		return $this->db->affected_rows;
 		//get how many rows affected
