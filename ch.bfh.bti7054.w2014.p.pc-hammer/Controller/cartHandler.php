@@ -1,10 +1,13 @@
 <?php
 require_once "../class/cart.inc.php";
+
 if(!isset($_SESSION)) session_start();
 
+//check if cart Session is set, if not create one
 if (! isset ( $_SESSION ["cart"] ))
 	$_SESSION ["cart"] = new Cart ();
 
+//check if the product and the quantity are set
 if (isset ( $_GET ["art"] ) && isset ( $_GET ["num"] )){
 	$jsonString = $_GET ["art"];
 	$article = json_decode($jsonString);
