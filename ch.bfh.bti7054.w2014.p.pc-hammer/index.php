@@ -1,8 +1,5 @@
 <?php 
 session_start ();
-if(isset($_SESSION['userid'])){
-	echo $_SESSION['userid'];
-}
 include "language/lang.php";
 include "Controller/LoginController.php";
 include "class/helper.php";
