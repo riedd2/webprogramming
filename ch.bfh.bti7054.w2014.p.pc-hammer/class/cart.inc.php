@@ -8,6 +8,10 @@ class Cart {
 	public $isEmpty = true;
 
 	
+	public function getProductQuantity(){
+		return $this->productQuantity;
+	}
+	
 	public function addItem($art, $num) {
 		
 		$index = $art->id;
